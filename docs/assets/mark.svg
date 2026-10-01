@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Connected evidence mark">
+ <rect width="64" height="64" rx="15" fill="#123b3d"/>
+ <path d="M17 42 29 19l18 12-17 16Z" fill="none" stroke="#6ad2bc" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+ <circle cx="17" cy="42" r="5" fill="#f6c477"/><circle cx="29" cy="19" r="5" fill="#f2f6e9"/><circle cx="47" cy="31" r="5" fill="#6ad2bc"/><circle cx="30" cy="47" r="5" fill="#f2f6e9"/>
+</svg>

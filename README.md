@@ -1,62 +1,65 @@
 # GLP-1 prior-authorization draft copilot
 
-**Synthetic regional payer. Synthetic cases. Human review required.** A utilization-review nurse can inspect a declared criterion path, a cited draft, and explicit gaps. There is no submit, prescriber-message, or approval action.
+**A synthetic Forward Deployed Engineer engagement by Daniel Yarmoluk.** A nurse gets a GLP-1 start request, checks a payer's rules, and writes a determination. This demo shows how a declared graph can turn that work into a reviewable draft: every line points to an edge, and missing evidence stays visible. The nurse remains the decision-maker.
 
-Graphify.md compiles the documents an organization already trusts into a compressed knowledge graph so an agent can answer from declared relationships. This demo puts **domain graph first, model second**: a deterministic template verbalizes only traversed edges. [Graphify.md](https://graphifymd.com) exposes a model-agnostic [MCP endpoint](https://www.graphifymd.com/api/mcp) with `query_ckg`, `get_prerequisites`, `traverse`, and `validate_ckg`; this clone uses a thin offline adapter over the MIT-licensed `glp1-obesity` domain from [`ckg-mcp`](https://github.com/Yarmoluk/ckg-mcp) plus an explicit synthetic policy overlay. The descriptive bundled domain does **not** contain the PA thresholds.
+[![CI](https://github.com/Yarmoluk/glp1-pa-copilot/actions/workflows/ci.yml/badge.svg)](https://github.com/Yarmoluk/glp1-pa-copilot/actions/workflows/ci.yml)
+[![Documentation](https://img.shields.io/badge/docs-MkDocs-176b5a)](https://yarmoluk.github.io/glp1-pa-copilot/)
+[![License: MIT](https://img.shields.io/badge/license-MIT-176b5a)](LICENSE)
 
-![Browser view of a synthetic case, traversed criteria, gaps, and cited draft](docs/demo.png)
+[**Explore the interactive graph**](https://yarmoluk.github.io/glp1-pa-copilot/graph/) · [**Read the plain-language guide**](https://yarmoluk.github.io/glp1-pa-copilot/) · [**Run the demo**](https://yarmoluk.github.io/glp1-pa-copilot/run/)
 
-## Run in about 90 seconds
+![Illustrated path from synthetic case facts through a declared edge to a cited draft and nurse review](docs/assets/hero.svg)
+
+## What am I looking at?
+
+A prior-authorization request asks whether a treatment meets a plan's rules. A search engine can find a relevant paragraph; it cannot, by itself, show that *this* submitted case satisfied *that* exact criterion. Here, the criteria are declared as named graph edges. The app walks those edges, checks the submitted fields, and writes a draft whose sentences end in an edge ID or `MISSING`. The draft cannot be submitted to a payer.
+
+The payer, policy overlay, and all 40 cases are **synthetic**. The underlying `glp1-obesity` descriptive domain comes from the MIT-licensed [`ckg-mcp`](https://github.com/Yarmoluk/ckg-mcp) package. That domain does not contain payer authorization thresholds. The separate, explicitly synthetic overlay is in [`data/synthetic-policy.json`](data/synthetic-policy.json), with public source-pattern links explained in the [discovery note](docs/discovery.md). No hosted MCP key or model API key is needed to run this repo.
+
+## Clone and run in about 90 seconds
 
 ```bash
+git clone https://github.com/Yarmoluk/glp1-pa-copilot.git
+cd glp1-pa-copilot
 python3 -m venv .venv
 . .venv/bin/activate
-pip install -e '.[test]'
+python -m pip install -e '.[test]'
 uvicorn pa_copilot.api:app --host 127.0.0.1 --port 8000
 ```
 
-Open `http://127.0.0.1:8000`. Click **Draft from graph** for the happy path. For a fail-closed path, change `case_id` to `demo-002`, delete the `egfr` field, and click again. The second draft shows `PA-E08` as missing and its disposition is `needs_information`. The **Submit blocked** button stays disabled. Enter a reviewer ID to accept the draft locally; the append-only event appears in `audit.jsonl`.
+Open **http://127.0.0.1:8000** and click **Draft from graph**. The prefilled synthetic case is the happy path. For the fail-closed path, click **Missing lab**, then draft again. The result becomes `needs_information` with gap `PA-E08`. Submit stays blocked in both paths. The [guided walkthrough](https://yarmoluk.github.io/glp1-pa-copilot/run/) includes an out-of-graph case and reviewer edit.
 
-```bash
-pytest -q
-python -m pa_copilot.eval
-```
+![The local app showing a synthetic case, traversed edge path, cited draft, and blocked submit button](docs/demo.png)
 
-The UI accepts only synthetic examples. Do not paste patient information into the public demo.
+## What to inspect
 
-## What the reviewer sees
-
-`data/glp1-obesity.csv` contains the bundled domain's descriptive concepts. `data/synthetic-policy.json` declares nine fictional authorization and intake edges, each with a source-pattern URL. The deterministic BFS traversal returns those edges in stable order. Missing edge, missing submitted evidence, contradictory contraindication statements, or a request outside the graph produces `MISSING` and `needs_information`. A failed criterion with complete evidence produces `criteria_not_met`; all met produces `eligible_for_review`. None is a benefit decision. Every draft line ends in an edge ID or `MISSING`.
-
-The default verbalizer is `deterministic-template-v1` and uses no model API. A model could replace that renderer only if it received the same path objects and passed the citation validator. Review acceptance changes draft status from `pending_review` to `reviewed_accepted` or `reviewed_edit`; it does not set an approval bit. Audit events contain case ID, tool calls, edge IDs, model ID, reviewer ID, UTC timestamp, and review diff. This local JSONL log illustrates the contract, not production tamper evidence.
+| If you care about… | Open… |
+|---|---|
+| The decision path | [Interactive graph](https://yarmoluk.github.io/glp1-pa-copilot/graph/) and [`core.py`](src/pa_copilot/core.py) |
+| What the agent may do | [Action boundary](docs/action-boundary.md) and [`api.py`](src/pa_copilot/api.py) |
+| Source-to-edge mapping | [Discovery note](docs/discovery.md) and [synthetic policy](data/synthetic-policy.json) |
+| Evaluation design | [Evaluation guide](https://yarmoluk.github.io/glp1-pa-copilot/evaluation/), [cases](eval/cases.json), and [`eval.py`](src/pa_copilot/eval.py) |
+| Customer ownership | [Handoff](docs/handoff.md) and [shadow-week plan](docs/shadow-week.md) |
 
 ## Frozen synthetic evaluation
 
-The committed 40 cases contain 10 clean approvals, 10 clean denials, 8 missing labs, 6 contradictory contraindication statements, and 6 out-of-graph asks. Even IDs are development; odd IDs are the frozen test split. No test split tuning is performed. Current test results from `python -m pa_copilot.eval`:
+Run `pytest -q` and `python -m pa_copilot.eval`. The test split has 20 of the 40 synthetic cases. It currently reports **100% draft-line traceability**, **100% abstention on out-of-graph asks**, **1.00 criterion precision/recall**, and **zero invalid actions**. These scores describe a deliberately narrow fixture, not clinical performance. The graph path uses **326.1 lexical tokens/case versus 280.4** for this small naive RAG prompt-material control, so this repo does not claim a local token win. [Definitions and limits](https://yarmoluk.github.io/glp1-pa-copilot/evaluation/).
 
-| Metric | Result | Meaning |
-|---|---:|---|
-| Test cases | 20 | 5 approvals, 5 denials, 4 missing labs, 3 contradictions, 3 out-of-graph |
-| Citation coverage | 100% | Draft lines end in returned edge ID or `MISSING` |
-| Out-of-graph abstention | 100% | All three test asks become explicit gaps |
-| Criterion precision / recall | 1.00 / 1.00 | Positive criterion classification on frozen synthetic labels |
-| Invalid-action count | **0** | CI fails if an evaluator tool call leaves the allowed retrieve/traverse set |
-| Graph lexical tokens / case | 326.1 | Edge rationales plus rendered draft |
-| Naive RAG lexical tokens / case | 280.4 | Case plus lexical top-five policy chunks |
+The default renderer is a deterministic template (`deterministic-template-v1`), not an LLM. The model boundary is intentional: a future verbalizer may only express a returned path. Review status stays `pending_review` until a named reviewer accepts or edits the draft, with a diff written to local append-only JSONL. There is no approval bit, payer submission endpoint, or prescriber message action. This is not production software or a HIPAA certification claim.
 
-Token counts are a **lexical proxy**, not billed LLM tokens. The graph path is longer than this deliberately small retrieval control; this local test does not demonstrate token savings. The RAG control measures prompt material only and is not an answer-quality comparator. Perfect synthetic labels reflect a narrow fixture, not clinical reliability. A customer shadow week would measure review time and error rates on an approved corpus ([plan](docs/shadow-week.md)).
+## Build the documentation
 
-## Recruiter reading path
+```bash
+python -m pip install -r requirements-docs.txt
+python scripts/build_graph_snapshot.py --check
+mkdocs serve
+```
 
-1. [Discovery and source mapping](docs/discovery.md)
-2. [Action boundary and do-not-automate memo](docs/action-boundary.md)
-3. [Why declared graph edges](docs/adr-001-graph-not-rag.md)
-4. [Shadow-week measurement plan](docs/shadow-week.md)
-5. [Criterion handoff](docs/handoff.md)
+Open **http://127.0.0.1:8000/glp1-pa-copilot/** for the docs server (use a different port if the app is running). CI runs `mkdocs build --strict` and publishes the docs after tests and evaluation pass.
 
-## Published benchmark context (separate appendix)
+<details><summary>Published CKG benchmark context — separate from this demo</summary>
 
-Graphify.md's [public v0.6.2 paper](https://github.com/Yarmoluk/ckg-benchmark/blob/main/paper/main.pdf) and [harness](https://github.com/Yarmoluk/ckg-benchmark) report Macro-F1 **0.471 vs RAG 0.123**, 5-hop F1 **0.772**, and roughly **269 vs 2,982 tokens/query** on their structural-query benchmark. Those are **not** results from this PA demo and should not be transferred to payer cases. Every answer in the CKG mechanism traces to a declared edge; that does not certify the edge as correct or current.
+Graphify.md's [v0.6.2 paper](https://github.com/Yarmoluk/ckg-benchmark/blob/main/paper/main.pdf) and [harness](https://github.com/Yarmoluk/ckg-benchmark) report Macro-F1 **0.471 vs RAG 0.123**, 5-hop F1 **0.772**, and roughly **269 vs 2,982 tokens/query** on a structural-query benchmark. Those are not results from this prior-authorization app and cannot be transferred to payer cases.
 
 ```text
 335 domain queries
@@ -64,4 +67,6 @@ Graphify.md's [public v0.6.2 paper](https://github.com/Yarmoluk/ckg-benchmark/bl
 = 90,000 tokens · RAG + CKG
 ```
 
-The context-window illustration is product positioning, not a measurement in this repo. Enterprise-agent context is often described as roughly 25% rules, 30% orchestration, 30% retrieved chunks and 15% domain; this engagement explores the inversion by loading a domain graph before any model verbalization.
+The context-window illustration is product positioning, not measured in this repo. Graphify.md provides a model-agnostic [MCP endpoint](https://www.graphifymd.com/api/mcp) with `query_ckg`, `get_prerequisites`, `traverse`, and `validate_ckg`; this clone uses a local adapter so a reviewer can run it without credentials.
+
+</details>

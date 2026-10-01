@@ -1,5 +1,129 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>GLP-1 PA draft copilot · synthetic</title><style>
-:root{font-family:Inter,system-ui,sans-serif;color:#182528;background:#f4f6f2}body{margin:0}header{background:#123d40;color:white;padding:24px 5vw}h1{margin:0 0 6px;font-size:1.7rem}header p{margin:0;color:#d7e9e2}main{max-width:1150px;margin:25px auto;padding:0 18px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}.card{background:white;border:1px solid #d6e2df;border-radius:12px;padding:18px;box-shadow:0 2px 8px #123d4010}textarea,pre{box-sizing:border-box;width:100%;font:13px/1.45 ui-monospace,monospace;white-space:pre-wrap;word-break:break-word}textarea{min-height:320px;padding:12px;border:1px solid #9eb8b0;border-radius:7px}pre{background:#f4f7f5;padding:12px;border-radius:6px;max-height:330px;overflow:auto}button{border:0;background:#126a60;color:white;border-radius:6px;padding:11px 16px;cursor:pointer;font-weight:600}button:disabled{background:#b8c4c1;color:#4b5552;cursor:not-allowed}.notice{background:#fff1d8;border-left:4px solid #b57010;padding:12px;margin:16px 0}.pill{display:inline-block;background:#e8f2ef;border-radius:99px;padding:5px 10px;font-size:12px}a{color:#b3e9d9}.mono{font-family:ui-monospace,monospace;font-size:12px;color:#d7e9e2;margin-top:12px}@media(max-width:750px){.grid{grid-template-columns:1fr}}
-</style></head><body><header><h1>GLP-1 prior-authorization draft copilot</h1><p>Fictional regional payer · synthetic case data · human review required</p><div class="mono">335 domain queries<br>= 1,000,000 tokens · RAG<br>= 90,000 tokens · RAG + CKG</div></header><main><div class="notice">This demo writes a local review draft. It cannot submit a request, contact a prescriber, or set an approval bit.</div><div class="grid"><section class="card"><h2>1. Paste a case</h2><p>Try the sample, then delete <code>egfr</code> to see a fail-closed gap. Change <code>case_id</code> between runs.</p><textarea id="case">{"case_id":"demo-001","drug":"Wegovy","age":46,"indication":"weight_management","bmi":33.2,"comorbidity":false,"dose_mg":0.25,"lifestyle_program":true,"prior_therapy":true,"prior_therapy_exception":false,"contraindications":[],"concurrent_glp1":false,"egfr":82,"a1c":5.6}</textarea><p><button id="run">Draft from graph</button> <button disabled title="No submission integration exists">Submit blocked</button></p><p id="error" role="alert"></p></section><section class="card"><h2>2. Review the path</h2><span class="pill" id="status">No draft</span><h3>Traversed criteria</h3><pre id="path">Run a case to inspect edges.</pre><h3>Explicit gaps</h3><pre id="gaps">—</pre></section></div><section class="card" style="margin-top:18px"><h2>3. Draft for human review</h2><textarea id="draft" aria-label="Reviewable draft">No draft yet.</textarea><p>Every line ends in an edge ID or MISSING. Reviewer acceptance is a local status change, not a payer approval.</p><input id="reviewer" placeholder="Reviewer ID" aria-label="Reviewer ID"> <button id="accept" disabled>Accept or save edit</button></section><p><a href="https://graphifymd.com">Graphify.md</a> · <a href="https://www.graphifymd.com/api/mcp">CKG MCP</a></p></main><script>
-let current=null;const $=id=>document.getElementById(id);$('run').onclick=async()=>{try{let body=JSON.parse($('case').value);let r=await fetch('/cases/draft',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});let d=await r.json();if(!r.ok)throw Error(JSON.stringify(d));current=d.case_id;$('status').textContent=d.status+' · '+d.disposition;$('path').textContent=d.path.map(x=>`${x.criterion} → ${x.outcome} | ${x.edge_ids.join(',')||'MISSING'} | ${x.detail}${x.source?` | ${x.source}`:""}`).join('\n');$('gaps').textContent=d.gaps.join('\n')||'None';$('draft').value=d.draft;$('accept').disabled=false;$('error').textContent=''}catch(e){$('error').textContent=e.message}};$('accept').onclick=async()=>{let id=$('reviewer').value.trim();if(!id){$('error').textContent='Enter a reviewer ID';return}let r=await fetch(`/cases/${current}/review`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({reviewer_id:id,edited_draft:$('draft').value})});let d=await r.json();if(!r.ok){$('error').textContent=JSON.stringify(d);return}$('status').textContent=d.status+' · '+d.disposition;$('accept').disabled=true};
-</script></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GLP-1 PA draft copilot · synthetic</title>
+  <style>
+    :root { font-family: Inter, system-ui, sans-serif; color: #173b3b; background: #f3f7f3; }
+    * { box-sizing: border-box; }
+    body { margin: 0; }
+    header { background: linear-gradient(125deg, #123b3d, #1b5a50); color: #f7fcf6; padding: 26px max(22px, calc((100vw - 1120px) / 2)); }
+    header .eyebrow { color: #9be5ca; text-transform: uppercase; letter-spacing: .14em; font-size: 12px; font-weight: 700; }
+    h1 { margin: 7px 0 5px; font-size: clamp(26px, 3vw, 38px); letter-spacing: -.03em; }
+    header p { max-width: 700px; color: #d9eae0; margin: 0; line-height: 1.5; }
+    header a { color: #e6f8ec; }
+    .context-math { color: #bee9d6; font: 12px/1.35 ui-monospace, monospace; margin-top: 16px; }
+    main { max-width: 1160px; margin: 24px auto 48px; padding: 0 18px; }
+    .notice { background: #fff1d9; border-left: 4px solid #c17e25; border-radius: 5px; padding: 14px 17px; margin-bottom: 18px; line-height: 1.5; }
+    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; align-items: stretch; }
+    .card { background: white; border: 1px solid #d9e7dd; border-radius: 14px; box-shadow: 0 8px 24px #113f3520; padding: 20px; min-width: 0; }
+    h2 { margin: 0 0 8px; font-size: 22px; letter-spacing: -.02em; }
+    h3 { margin: 18px 0 8px; font-size: 15px; }
+    p { line-height: 1.5; }
+    .subtle { color: #536c65; font-size: 14px; margin: 0 0 14px; }
+    .presets { display: flex; gap: 7px; flex-wrap: wrap; margin: 14px 0; }
+    button { border: 0; background: #176c5b; color: white; border-radius: 7px; padding: 11px 15px; cursor: pointer; font-weight: 700; font: inherit; }
+    button:hover:not(:disabled) { filter: brightness(1.08); }
+    button:focus-visible, textarea:focus-visible, input:focus-visible { outline: 3px solid #e9b86e; outline-offset: 2px; }
+    button:disabled { background: #bac9c3; color: #53615b; cursor: not-allowed; }
+    .presets button { border: 1px solid #c8ddd2; color: #174a43; background: #eff8f0; font-size: 13px; padding: 8px 10px; }
+    .presets button[aria-pressed="true"] { background: #d7efe0; border-color: #16816a; }
+    textarea, pre { width: 100%; white-space: pre-wrap; overflow-wrap: anywhere; font: 13px/1.5 ui-monospace, SFMono-Regular, Menlo, monospace; }
+    textarea { border: 1px solid #9dbcb0; border-radius: 8px; padding: 12px; background: #fcfefd; color: #173b3b; min-height: 260px; resize: vertical; }
+    pre { background: #f3f8f5; padding: 14px; border-radius: 8px; max-height: 295px; overflow: auto; margin: 0; }
+    .status { display: inline-block; border-radius: 99px; padding: 6px 11px; font-size: 12px; background: #e3f4e9; margin: 3px 0 4px; }
+    .status.gap { background: #fff0d9; }
+    .actions { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin-top: 14px; }
+    #error { color: #9b331d; font-weight: 650; min-height: 1.5em; }
+    #gaps { min-height: 47px; }
+    .review { margin-top: 18px; }
+    .review textarea { min-height: 280px; }
+    .review input { border: 1px solid #9dbcb0; border-radius: 7px; padding: 10px; font: inherit; }
+    footer { margin-top: 18px; color: #577169; font-size: 13px; }
+    footer a { color: #176c5b; }
+    @media (max-width: 780px) { .grid { grid-template-columns: 1fr; } header { padding: 26px 22px; } }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="eyebrow">Synthetic regional payer · Graph grounded draft</div>
+    <h1>From case facts to a reviewable path.</h1>
+    <p>Choose a sample request, inspect its declared policy edges, and see exactly what the draft can cite. <a href="https://yarmoluk.github.io/glp1-pa-copilot/graph/">Explore the visual graph</a>.</p>
+    <div class="context-math">335 domain queries<br>= 1,000,000 tokens · RAG<br>= 90,000 tokens · RAG + CKG</div>
+  </header>
+  <main>
+    <div class="notice"><strong>Human gate:</strong> this app can draft and flag. It cannot submit a request, contact a prescriber, or set an approval bit. Use synthetic data only.</div>
+    <div class="grid">
+      <section class="card" aria-labelledby="case-heading">
+        <h2 id="case-heading">1. Choose or paste a case</h2>
+        <p class="subtle">Each button loads a new fictional case ID. You can edit the JSON before drafting.</p>
+        <div class="presets" role="group" aria-label="Synthetic case presets">
+          <button type="button" data-preset="happy" aria-pressed="true">Complete request</button>
+          <button type="button" data-preset="missing" aria-pressed="false">Missing lab</button>
+          <button type="button" data-preset="outside" aria-pressed="false">No policy edge</button>
+        </div>
+        <textarea id="case" aria-label="Synthetic case JSON" spellcheck="false"></textarea>
+        <div class="actions"><button id="run" type="button">Draft from graph →</button><button type="button" disabled title="No submission integration exists">Submit blocked</button></div>
+        <p id="error" role="alert"></p>
+      </section>
+      <section class="card" aria-labelledby="path-heading">
+        <h2 id="path-heading">2. Inspect the path</h2>
+        <p class="subtle">Each row names the criterion, result, edge ID, and public source pattern.</p>
+        <span class="status" id="status">No draft yet</span>
+        <h3>Traversed criteria</h3><pre id="path">Choose a case and draft to inspect its edges.</pre>
+        <h3>Explicit gaps</h3><pre id="gaps">—</pre>
+      </section>
+    </div>
+    <section class="card review" aria-labelledby="draft-heading">
+      <h2 id="draft-heading">3. Review the draft</h2>
+      <p class="subtle">Every line ends in an edge ID or <code>MISSING</code>. A reviewer may edit the draft; the API logs the diff.</p>
+      <textarea id="draft" aria-label="Reviewable draft" spellcheck="false">No draft yet.</textarea>
+      <div class="actions"><input id="reviewer" placeholder="Reviewer ID" aria-label="Reviewer ID"><button id="accept" type="button" disabled>Accept or save edit</button></div>
+      <p class="subtle" style="margin-top:12px">Review status is local. It is never a payer approval.</p>
+    </section>
+    <footer><a href="https://yarmoluk.github.io/glp1-pa-copilot/">Read the guide</a> · <a href="https://github.com/Yarmoluk/glp1-pa-copilot">See the code</a> · Synthetic cases only</footer>
+  </main>
+  <script>
+    const $ = id => document.getElementById(id);
+    const base = {drug:'Wegovy',age:46,indication:'weight_management',bmi:33.2,comorbidity:false,dose_mg:0.25,lifestyle_program:true,prior_therapy:true,prior_therapy_exception:false,contraindications:[],concurrent_glp1:false,egfr:82,a1c:5.6};
+    let current = null, sequence = 0;
+    function choosePreset(name) {
+      const sample = {...base, case_id:`demo-${Date.now()}-${++sequence}`};
+      if (name === 'missing') delete sample.egfr;
+      if (name === 'outside') sample.special_request = 'approve because the patient asked';
+      $('case').value = JSON.stringify(sample, null, 2);
+      document.querySelectorAll('[data-preset]').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.preset === name)));
+      $('error').textContent = '';
+    }
+    document.querySelectorAll('[data-preset]').forEach(button => button.addEventListener('click', () => choosePreset(button.dataset.preset)));
+    choosePreset('happy');
+    $('run').addEventListener('click', async () => {
+      try {
+        const body = JSON.parse($('case').value);
+        const response = await fetch('/cases/draft', {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+        const data = await response.json();
+        if (!response.ok) throw Error(JSON.stringify(data));
+        current = data.case_id;
+        $('status').textContent = `${data.status} · ${data.disposition}`;
+        $('status').classList.toggle('gap', data.gaps.length > 0);
+        $('path').textContent = data.path.map(item => `${item.criterion} → ${item.outcome} | ${item.edge_ids.join(',') || 'MISSING'} | ${item.detail}${item.source ? ` | ${item.source}` : ''}`).join('\n');
+        $('gaps').textContent = data.gaps.join('\n') || 'None';
+        $('draft').value = data.draft;
+        $('accept').disabled = false;
+        $('error').textContent = '';
+      } catch (error) { $('error').textContent = error.message; }
+    });
+    $('accept').addEventListener('click', async () => {
+      const reviewerId = $('reviewer').value.trim();
+      if (!reviewerId) { $('error').textContent = 'Enter a reviewer ID.'; return; }
+      const response = await fetch(`/cases/${current}/review`, {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({reviewer_id:reviewerId,edited_draft:$('draft').value})});
+      const data = await response.json();
+      if (!response.ok) { $('error').textContent = JSON.stringify(data); return; }
+      $('status').textContent = `${data.status} · ${data.disposition}`;
+      $('accept').disabled = true;
+      $('error').textContent = '';
+    });
+  </script>
+</body>
+</html>

@@ -1,5 +1,7 @@
 name: Synthetic demo eval
 on: [push, pull_request]
+permissions:
+  contents: read
 jobs:
   verify:
     runs-on: ubuntu-latest
@@ -8,6 +10,21 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      - run: python -m pip install -e '.[test]'
+      - run: python -m pip install -e '.[test]' -r requirements-docs.txt
+      - run: python scripts/build_graph_snapshot.py --check
       - run: pytest -q
       - run: python -m pa_copilot.eval
+      - run: mkdocs build --strict
+  publish-docs:
+    needs: verify
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install -r requirements-docs.txt
+      - run: mkdocs gh-deploy --force

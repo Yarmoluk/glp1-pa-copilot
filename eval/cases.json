@@ -1,0 +1,1272 @@
+[
+  {
+    "split": "dev",
+    "kind": "approval",
+    "case": {
+      "drug": "Wegovy",
+      "age": 46,
+      "indication": "weight_management",
+      "bmi": 30,
+      "comorbidity": false,
+      "dose_mg": 0.25,
+      "lifestyle_program": true,
+      "prior_therapy": true,
+      "prior_therapy_exception": false,
+      "contraindications": [],
+      "concurrent_glp1": false,
+      "egfr": 82,
+      "a1c": 5.6,
+      "case_id": "SYN-001"
+    },
+    "expected": {
+      "PA-E01": "met",
+      "PA-E02": "met",
+      "PA-E03": "met",
+      "PA-E04": "met",
+      "PA-E05": "met",
+      "PA-E06": "met",
+      "PA-E07": "met",
+      "PA-E08": "met",
+      "PA-E09": "met"
+    }
+  },
+  {
+    "split": "test",
+    "kind": "approval",
+    "case": {
+      "drug": "Wegovy",
+      "age": 46,
+      "indication": "weight_management",
+      "bmi": 31,
+      "comorbidity": false,
+      "dose_mg": 0.25,
+      "lifestyle_program": true,
+      "prior_therapy": true,
+      "prior_therapy_exception": false,
+      "contraindications": [],
+      "concurrent_glp1": false,
+      "egfr": 82,
+      "a1c": 5.6,
+      "case_id": "SYN-002"
+    },
+    "expected": {
+      "PA-E01": "met",
+      "PA-E02": "met",
+      "PA-E03": "met",
+      "PA-E04": "met",
+      "PA-E05": "met",
+      "PA-E06": "met",
+      "PA-E07": "met",
+      "PA-E08": "met",
+      "PA-E09": "met"
+    }
+  },
+  {
+    "split": "dev",
+    "kind": "approval",
+    "case": {
+      "drug": "Wegovy",
+      "age": 46,
+      "indication": "weight_management",
+      "bmi": 32,
+      "comorbidity": false,
+      "dose_mg": 0.25,
+      "lifestyle_program": true,
+      "prior_therapy": true,
+      "prior_therapy_exception": false,
+      "contraindications": [],
+      "concurrent_glp1": false,
+      "egfr": 82,
+      "a1c": 5.6,
+      "case_id": "SYN-003"
+    },
+    "expected": {
+      "PA-E01": "met",
+      "PA-E02": "met",
+      "PA-E03": "met",
+      "PA-E04": "met",
+      "PA-E05": "met",
+      "PA-E06": "met",
+      "PA-E07": "met",
+      "PA-E08": "met",
+      "PA-E09": "met"
+    }
+  },
+  {
+    "split": "test",
+    "kind": "approval",
+    "case": {
+      "drug": "Wegovy",
+      "age": 46,
+      "indication": "weight_management",
+      "bmi": 33,
+      "comorbidity": false,
+      "dose_mg": 0.25,
+      "lifestyle_program": true,
+      "prior_therapy": true,
+      "prior_therapy_exception": false,
+      "contraindications": [],
+      "concurrent_glp1": false,
+      "egfr": 82,
+      "a1c": 5.6,
+      "case_id": "SYN-004"
+    },
+    "expected": {
+      "PA-E01": "met",
+      "PA-E02": "met",
+      "PA-E03": "met",
+      "PA-E04": "met",
+      "PA-E05": "met",
+      "PA-E06": "met",
+      "PA-E07": "met",
+      "PA-E08": "met",
+      "PA-E09": "met"
+    }
+  },
+  {
+    "split": "dev",
+    "kind": "approval",
+    "case": {
+      "drug": "Wegovy",
+      "age": 46,
+      "indication": "weight_management",
+      "bmi": 34,
+      "comorbidity": false,
+      "dose_mg": 0.25,
+      "lifestyle_program": true,
+      "prior_therapy": true,
+      "prior_therapy_exception": false,
+      "contraindications": [],
+      "concurrent_glp1": false,
+      "egfr": 82,
+      "a1c": 5.6,
+      "case_id": "SYN-005"
+    },
+    "expected": {
+      "PA-E01": "met",
+      "PA-E02": "met",
+      "PA-E03": "met",
+      "PA-E04": "met",
+      "PA-E05": "met",
+      "PA-E06": "met",
+      "PA-E07": "met",
+      "PA-E08": "met",
+      "PA-E09": "met"
+    }
+  },
+  {
+    "split": "test",
+    "kind": "approval",
+    "case": {
+      "drug": "Wegovy",
+      "age": 46,
+      "indication": "weight_management",
+      "bmi": 30,
+      "comorbidity": false,
+      "dose_mg": 0.25,
+      "lifestyle_program": true,
+      "prior_therapy": true,
+      "prior_therapy_exception": false,
+      "contraindications": [],
+      "concurrent_glp1": false,
+      "egfr": 82,
+      "a1c": 5.6,
+      "case_id": "SYN-006"
+    },
+    "expected": {
+      "PA-E01": "met",
+      "PA-E02": "met",
+      "PA-E03": "met",
+      "PA-E04": "met",
+      "PA-E05": "met",
+      "PA-E06": "met",
+      "PA-E07": "met",
+      "PA-E08": "met",
+      "PA-E09": "met"
+    }
+  },
+  {
+    "split": "dev",
+    "kind": "approval",
+    "case": {
+      "drug": "Wegovy",
+      "age": 46,
+      "indication": "weight_management",
+      "bmi": 31,
+      "comorbidity": false,
+      "dose_mg": 0.25,
+      "lifestyle_program": true,
+      "prior_therapy": true,
+      "prior_therapy_exception": false,
+      "contraindications": [],
+      "concurrent_glp1": false,
+      "egfr": 82,
+      "a1c": 5.6,
+      "case_id": "SYN-007"
+    },
+    "expected": {
+      "PA-E01": "met",
+      "PA-E02": "met",
+      "PA-E03": "met",
+      "PA-E04": "met",
+      "PA-E05": "met",
+      "PA-E06": "met",
+      "PA-E07": "met",
+      "PA-E08": "met",
+      "PA-E09": "met"
+    }
+  },
+  {
+    "split": "test",
+    "kind": "approval",
+    "case": {
+      "drug": "Wegovy",
+      "age": 46,
+      "indication": "weight_management",
+      "bmi": 32,
+      "comorbidity": false,
+      "dose_mg": 0.25,
+      "lifestyle_program": true,
+      "prior_therapy": true,
+      "prior_therapy_exception": false,
+      "contraindications": [],
+      "concurrent_glp1": false,
+      "egfr": 82,
+      "a1c": 5.6,
+      "case_id": "SYN-008"
+    },
+    "expected": {
+      "PA-E01": "met",
+      "PA-E02": "met",
+      "PA-E03": "met",
+      "PA-E04": "met",
+      "PA-E05": "met",
+      "PA-E06": "met",
+      "PA-E07": "met",
+      "PA-E08": "met",
+      "PA-E09": "met"
+    }
+  },
+  {
+    "split": "dev",
+    "kind": "approval",
+    "case": {
+      "drug": "Wegovy",
+      "age": 46,
+      "indication": "weight_management",
+      "bmi": 33,
+      "comorbidity": false,
+      "dose_mg": 0.25,
+      "lifestyle_program": true,
+      "prior_therapy": true,
+      "prior_therapy_exception": false,
+      "contraindications": [],
+      "concurrent_glp1": false,
+      "egfr": 82,
+      "a1c": 5.6,
+      "case_id": "SYN-009"
+    },
+    "expected": {
+      "PA-E01": "met",
+      "PA-E02": "met",
+      "PA-E03": "met",
+      "PA-E04": "met",
+      "PA-E05": "met",
+      "PA-E06": "met",
+      "PA-E07": "met",
+      "PA-E08": "met",
+      "PA-E09": "met"
+    }
+  },
+  {
+    "split": "test",
+    "kind": "approval",
+    "case": {
+      "drug": "Wegovy",
+      "age": 46,
+      "indication": "weight_management",
+      "bmi": 34,
+      "comorbidity": false,
+      "dose_mg": 0.25,
+      "lifestyle_program": true,
+      "prior_therapy": true,
+      "prior_therapy_exception": false,
+      "contraindications": [],
+      "concurrent_glp1": false,
+      "egfr": 82,
+      "a1c": 5.6,
+      "case_id": "SYN-010"
+    },
+    "expected": {
+      "PA-E01": "met",
+      "PA-E02": "met",
+      "PA-E03": "met",
+      "PA-E04": "met",
+      "PA-E05": "met",
+      "PA-E06": "met",
+      "PA-E07": "met",
+      "PA-E08": "met",
+      "PA-E09": "met"
+    }
+  },
+  {
+    "split": "dev",
+    "kind": "denial",
+    "case": {
+      "drug": "Wegovy",
+      "age": 46,
+      "indication": "weight_management",
+      "bmi": 25,
+      "comorbidity": false,
+      "dose_mg": 0.25,
+      "lifestyle_program": true,
+      "prior_therapy": true,
+      "prior_therapy_exception": false,
+      "contraindications": [],
+      "concurrent_glp1": false,
+      "egfr": 82,
+      "a1c": 5.6,
+      "case_id": "SYN-011"
+    },
+    "expected": {
+      "PA-E01": "met",
+      "PA-E02": "not_met",
+      "PA-E03": "met",
+      "PA-E04": "met",
+      "PA-E05": "met",
+      "PA-E06": "met",
+      "PA-E07": "met",
+      "PA-E08": "met",
+      "PA-E09": "met"
+    }
+  },
+  {
+    "split": "test",
+    "kind": "denial",
+    "case": {
+      "drug": "Wegovy",
+      "age": 46,
+      "indication": "weight_management",
+      "bmi": 26,
+      "comorbidity": false,
+      "dose_mg": 0.25,
+      "lifestyle_program": true,
+      "prior_therapy": true,
+      "prior_therapy_exception": false,
+      "contraindications": [],
+      "concurrent_glp1": false,
+      "egfr": 82,
+      "a1c": 5.6,
+      "case_id": "SYN-012"
+    },
+    "expected": {
+      "PA-E01": "met",
+      "PA-E02": "not_met",
+      "PA-E03": "met",
+      "PA-E04": "met",
+      "PA-E05": "met",
+      "PA-E06": "met",
+      "PA-E07": "met",
+      "PA-E08": "met",
+      "PA-E09": "met"
+    }
+  },
+  {
+    "split": "dev",
+    "kind": "denial",
+    "case": {
+      "drug": "Wegovy",
+      "age": 46,
+      "indication": "weight_management",
+      "bmi": 24,
+      "comorbidity": false,
+      "dose_mg": 0.25,
+      "lifestyle_program": true,
+      "prior_therapy": true,
+      "prior_therapy_exception": false,
+      "contraindications": [],
+      "concurrent_glp1": false,
+      "egfr": 82,
+      "a1c": 5.6,
+      "case_id": "SYN-013"
+    },
+    "expected": {
+      "PA-E01": "met",
+      "PA-E02": "not_met",
+      "PA-E03": "met",
+      "PA-E04": "met",
+      "PA-E05": "met",
+      "PA-E06": "met",
+      "PA-E07": "met",
+      "PA-E08": "met",
+      "PA-E09": "met"
+    }
+  },
+  {
+    "split": "test",
+    "kind": "denial",
+    "case": {
+      "drug": "Wegovy",
+      "age": 46,
+      "indication": "weight_management",
+      "bmi": 25,
+      "comorbidity": false,
+      "dose_mg": 0.25,
+      "lifestyle_program": true,
+      "prior_therapy": true,
+      "prior_therapy_exception": false,
+      "contraindications": [],
+      "concurrent_glp1": false,
+      "egfr": 82,
+      "a1c": 5.6,
+      "case_id": "SYN-014"
+    },
+    "expected": {
+      "PA-E01": "met",
+      "PA-E02": "not_met",
+      "PA-E03": "met",
+      "PA-E04": "met",
+      "PA-E05": "met",
+      "PA-E06": "met",
+      "PA-E07": "met",
+      "PA-E08": "met",
+      "PA-E09": "met"
+    }
+  },
+  {
+    "split": "dev",
+    "kind": "denial",
+    "case": {
+      "drug": "Wegovy",
+      "age": 46,
+      "indication": "weight_management",
+      "bmi": 26,
+      "comorbidity": false,
+      "dose_mg": 0.25,
+      "lifestyle_program": true,
+      "prior_therapy": true,
+      "prior_therapy_exception": false,
+      "contraindications": [],
+      "concurrent_glp1": false,
+      "egfr": 82,
+      "a1c": 5.6,
+      "case_id": "SYN-015"
+    },
+    "expected": {
+      "PA-E01": "met",
+      "PA-E02": "not_met",
+      "PA-E03": "met",
+      "PA-E04": "met",
+      "PA-E05": "met",
+      "PA-E06": "met",
+      "PA-E07": "met",
+      "PA-E08": "met",
+      "PA-E09": "met"
+    }
+  },
+  {
+    "split": "test",
+    "kind": "denial",
+    "case": {
+      "drug": "Wegovy",
+      "age": 46,
+      "indication": "weight_management",
+      "bmi": 24,
+      "comorbidity": false,
+      "dose_mg": 0.25,
+      "lifestyle_program": true,
+      "prior_therapy": true,
+      "prior_therapy_exception": false,
+      "contraindications": [],
+      "concurrent_glp1": false,
+      "egfr": 82,
+      "a1c": 5.6,
+      "case_id": "SYN-016"
+    },
+    "expected": {
+      "PA-E01": "met",
+      "PA-E02": "not_met",
+      "PA-E03": "met",
+      "PA-E04": "met",
+      "PA-E05": "met",
+      "PA-E06": "met",
+      "PA-E07": "met",
+      "PA-E08": "met",
+      "PA-E09": "met"
+    }
+  },
+  {
+    "split": "dev",
+    "kind": "denial",
+    "case": {
+      "drug": "Wegovy",
+      "age": 46,
+      "indication": "weight_management",
+      "bmi": 25,
+      "comorbidity": false,
+      "dose_mg": 0.25,
+      "lifestyle_program": true,
+      "prior_therapy": true,
+      "prior_therapy_exception": false,
+      "contraindications": [],
+      "concurrent_glp1": false,
+      "egfr": 82,
+      "a1c": 5.6,
+      "case_id": "SYN-017"
+    },
+    "expected": {
+      "PA-E01": "met",
+      "PA-E02": "not_met",
+      "PA-E03": "met",
+      "PA-E04": "met",
+      "PA-E05": "met",
+      "PA-E06": "met",
+      "PA-E07": "met",
+      "PA-E08": "met",
+      "PA-E09": "met"
+    }
+  },
+  {
+    "split": "test",
+    "kind": "denial",
+    "case": {
+      "drug": "Wegovy",
+      "age": 46,
+      "indication": "weight_management",
+      "bmi": 26,
+      "comorbidity": false,
+      "dose_mg": 0.25,
+      "lifestyle_program": true,
+      "prior_therapy": true,
+      "prior_therapy_exception": false,
+      "contraindications": [],
+      "concurrent_glp1": false,
+      "egfr": 82,
+      "a1c": 5.6,
+      "case_id": "SYN-018"
+    },
+    "expected": {
+      "PA-E01": "met",
+      "PA-E02": "not_met",
+      "PA-E03": "met",
+      "PA-E04": "met",
+      "PA-E05": "met",
+      "PA-E06": "met",
+      "PA-E07": "met",
+      "PA-E08": "met",
+      "PA-E09": "met"
+    }
+  },
+  {
+    "split": "dev",
+    "kind": "denial",
+    "case": {
+      "drug": "Wegovy",
+      "age": 46,
+      "indication": "weight_management",
+      "bmi": 24,
+      "comorbidity": false,
+      "dose_mg": 0.25,
+      "lifestyle_program": true,
+      "prior_therapy": true,
+      "prior_therapy_exception": false,
+      "contraindications": [],
+      "concurrent_glp1": false,
+      "egfr": 82,
+      "a1c": 5.6,
+      "case_id": "SYN-019"
+    },
+    "expected": {
+      "PA-E01": "met",
+      "PA-E02": "not_met",
+      "PA-E03": "met",
+      "PA-E04": "met",
+      "PA-E05": "met",
+      "PA-E06": "met",
+      "PA-E07": "met",
+      "PA-E08": "met",
+      "PA-E09": "met"
+    }
+  },
+  {
+    "split": "test",
+    "kind": "denial",
+    "case": {
+      "drug": "Wegovy",
+      "age": 46,
+      "indication": "weight_management",
+      "bmi": 25,
+      "comorbidity": false,
+      "dose_mg": 0.25,
+      "lifestyle_program": true,
+      "prior_therapy": true,
+      "prior_therapy_exception": false,
+      "contraindications": [],
+      "concurrent_glp1": false,
+      "egfr": 82,
+      "a1c": 5.6,
+      "case_id": "SYN-020"
+    },
+    "expected": {
+      "PA-E01": "met",
+      "PA-E02": "not_met",
+      "PA-E03": "met",
+      "PA-E04": "met",
+      "PA-E05": "met",
+      "PA-E06": "met",
+      "PA-E07": "met",
+      "PA-E08": "met",
+      "PA-E09": "met"
+    }
+  },
+  {
+    "split": "dev",
+    "kind": "missing_lab",
+    "case": {
+      "drug": "Wegovy",
+      "age": 46,
+      "indication": "weight_management",
+      "bmi": 33.2,
+      "comorbidity": false,
+      "dose_mg": 0.25,
+      "lifestyle_program": true,
+      "prior_therapy": true,
+      "prior_therapy_exception": false,
+      "contraindications": [],
+      "concurrent_glp1": false,
+      "egfr": null,
+      "a1c": 5.6,
+      "case_id": "SYN-021"
+    },
+    "expected": {
+      "PA-E01": "met",
+      "PA-E02": "met",
+      "PA-E03": "met",
+      "PA-E04": "met",
+      "PA-E05": "met",
+      "PA-E06": "met",
+      "PA-E07": "met",
+      "PA-E08": "missing",
+      "PA-E09": "met"
+    }
+  },
+  {
+    "split": "test",
+    "kind": "missing_lab",
+    "case": {
+      "drug": "Wegovy",
+      "age": 46,
+      "indication": "weight_management",
+      "bmi": 33.2,
+      "comorbidity": false,
+      "dose_mg": 0.25,
+      "lifestyle_program": true,
+      "prior_therapy": true,
+      "prior_therapy_exception": false,
+      "contraindications": [],
+      "concurrent_glp1": false,
+      "egfr": 82,
+      "a1c": null,
+      "case_id": "SYN-022"
+    },
+    "expected": {
+      "PA-E01": "met",
+      "PA-E02": "met",
+      "PA-E03": "met",
+      "PA-E04": "met",
+      "PA-E05": "met",
+      "PA-E06": "met",
+      "PA-E07": "met",
+      "PA-E08": "met",
+      "PA-E09": "missing"
+    }
+  },
+  {
+    "split": "dev",
+    "kind": "missing_lab",
+    "case": {
+      "drug": "Wegovy",
+      "age": 46,
+      "indication": "weight_management",
+      "bmi": 33.2,
+      "comorbidity": false,
+      "dose_mg": 0.25,
+      "lifestyle_program": true,
+      "prior_therapy": true,
+      "prior_therapy_exception": false,
+      "contraindications": [],
+      "concurrent_glp1": false,
+      "egfr": null,
+      "a1c": 5.6,
+      "case_id": "SYN-023"
+    },
+    "expected": {
+      "PA-E01": "met",
+      "PA-E02": "met",
+      "PA-E03": "met",
+      "PA-E04": "met",
+      "PA-E05": "met",
+      "PA-E06": "met",
+      "PA-E07": "met",
+      "PA-E08": "missing",
+      "PA-E09": "met"
+    }
+  },
+  {
+    "split": "test",
+    "kind": "missing_lab",
+    "case": {
+      "drug": "Wegovy",
+      "age": 46,
+      "indication": "weight_management",
+      "bmi": 33.2,
+      "comorbidity": false,
+      "dose_mg": 0.25,
+      "lifestyle_program": true,
+      "prior_therapy": true,
+      "prior_therapy_exception": false,
+      "contraindications": [],
+      "concurrent_glp1": false,
+      "egfr": 82,
+      "a1c": null,
+      "case_id": "SYN-024"
+    },
+    "expected": {
+      "PA-E01": "met",
+      "PA-E02": "met",
+      "PA-E03": "met",
+      "PA-E04": "met",
+      "PA-E05": "met",
+      "PA-E06": "met",
+      "PA-E07": "met",
+      "PA-E08": "met",
+      "PA-E09": "missing"
+    }
+  },
+  {
+    "split": "dev",
+    "kind": "missing_lab",
+    "case": {
+      "drug": "Wegovy",
+      "age": 46,
+      "indication": "weight_management",
+      "bmi": 33.2,
+      "comorbidity": false,
+      "dose_mg": 0.25,
+      "lifestyle_program": true,
+      "prior_therapy": true,
+      "prior_therapy_exception": false,
+      "contraindications": [],
+      "concurrent_glp1": false,
+      "egfr": null,
+      "a1c": 5.6,
+      "case_id": "SYN-025"
+    },
+    "expected": {
+      "PA-E01": "met",
+      "PA-E02": "met",
+      "PA-E03": "met",
+      "PA-E04": "met",
+      "PA-E05": "met",
+      "PA-E06": "met",
+      "PA-E07": "met",
+      "PA-E08": "missing",
+      "PA-E09": "met"
+    }
+  },
+  {
+    "split": "test",
+    "kind": "missing_lab",
+    "case": {
+      "drug": "Wegovy",
+      "age": 46,
+      "indication": "weight_management",
+      "bmi": 33.2,
+      "comorbidity": false,
+      "dose_mg": 0.25,
+      "lifestyle_program": true,
+      "prior_therapy": true,
+      "prior_therapy_exception": false,
+      "contraindications": [],
+      "concurrent_glp1": false,
+      "egfr": 82,
+      "a1c": null,
+      "case_id": "SYN-026"
+    },
+    "expected": {
+      "PA-E01": "met",
+      "PA-E02": "met",
+      "PA-E03": "met",
+      "PA-E04": "met",
+      "PA-E05": "met",
+      "PA-E06": "met",
+      "PA-E07": "met",
+      "PA-E08": "met",
+      "PA-E09": "missing"
+    }
+  },
+  {
+    "split": "dev",
+    "kind": "missing_lab",
+    "case": {
+      "drug": "Wegovy",
+      "age": 46,
+      "indication": "weight_management",
+      "bmi": 33.2,
+      "comorbidity": false,
+      "dose_mg": 0.25,
+      "lifestyle_program": true,
+      "prior_therapy": true,
+      "prior_therapy_exception": false,
+      "contraindications": [],
+      "concurrent_glp1": false,
+      "egfr": null,
+      "a1c": 5.6,
+      "case_id": "SYN-027"
+    },
+    "expected": {
+      "PA-E01": "met",
+      "PA-E02": "met",
+      "PA-E03": "met",
+      "PA-E04": "met",
+      "PA-E05": "met",
+      "PA-E06": "met",
+      "PA-E07": "met",
+      "PA-E08": "missing",
+      "PA-E09": "met"
+    }
+  },
+  {
+    "split": "test",
+    "kind": "missing_lab",
+    "case": {
+      "drug": "Wegovy",
+      "age": 46,
+      "indication": "weight_management",
+      "bmi": 33.2,
+      "comorbidity": false,
+      "dose_mg": 0.25,
+      "lifestyle_program": true,
+      "prior_therapy": true,
+      "prior_therapy_exception": false,
+      "contraindications": [],
+      "concurrent_glp1": false,
+      "egfr": 82,
+      "a1c": null,
+      "case_id": "SYN-028"
+    },
+    "expected": {
+      "PA-E01": "met",
+      "PA-E02": "met",
+      "PA-E03": "met",
+      "PA-E04": "met",
+      "PA-E05": "met",
+      "PA-E06": "met",
+      "PA-E07": "met",
+      "PA-E08": "met",
+      "PA-E09": "missing"
+    }
+  },
+  {
+    "split": "dev",
+    "kind": "contradiction",
+    "case": {
+      "drug": "Wegovy",
+      "age": 46,
+      "indication": "weight_management",
+      "bmi": 33.2,
+      "comorbidity": false,
+      "dose_mg": 0.25,
+      "lifestyle_program": true,
+      "prior_therapy": true,
+      "prior_therapy_exception": false,
+      "contraindications": [
+        "MTC"
+      ],
+      "concurrent_glp1": false,
+      "egfr": 82,
+      "a1c": 5.6,
+      "case_id": "SYN-029",
+      "denies_contraindications": true
+    },
+    "expected": {
+      "PA-E01": "met",
+      "PA-E02": "met",
+      "PA-E03": "met",
+      "PA-E04": "met",
+      "PA-E05": "met",
+      "PA-E06": "missing",
+      "PA-E07": "met",
+      "PA-E08": "met",
+      "PA-E09": "met"
+    }
+  },
+  {
+    "split": "test",
+    "kind": "contradiction",
+    "case": {
+      "drug": "Wegovy",
+      "age": 46,
+      "indication": "weight_management",
+      "bmi": 33.2,
+      "comorbidity": false,
+      "dose_mg": 0.25,
+      "lifestyle_program": true,
+      "prior_therapy": true,
+      "prior_therapy_exception": false,
+      "contraindications": [
+        "MTC"
+      ],
+      "concurrent_glp1": false,
+      "egfr": 82,
+      "a1c": 5.6,
+      "case_id": "SYN-030",
+      "denies_contraindications": true
+    },
+    "expected": {
+      "PA-E01": "met",
+      "PA-E02": "met",
+      "PA-E03": "met",
+      "PA-E04": "met",
+      "PA-E05": "met",
+      "PA-E06": "missing",
+      "PA-E07": "met",
+      "PA-E08": "met",
+      "PA-E09": "met"
+    }
+  },
+  {
+    "split": "dev",
+    "kind": "contradiction",
+    "case": {
+      "drug": "Wegovy",
+      "age": 46,
+      "indication": "weight_management",
+      "bmi": 33.2,
+      "comorbidity": false,
+      "dose_mg": 0.25,
+      "lifestyle_program": true,
+      "prior_therapy": true,
+      "prior_therapy_exception": false,
+      "contraindications": [
+        "MTC"
+      ],
+      "concurrent_glp1": false,
+      "egfr": 82,
+      "a1c": 5.6,
+      "case_id": "SYN-031",
+      "denies_contraindications": true
+    },
+    "expected": {
+      "PA-E01": "met",
+      "PA-E02": "met",
+      "PA-E03": "met",
+      "PA-E04": "met",
+      "PA-E05": "met",
+      "PA-E06": "missing",
+      "PA-E07": "met",
+      "PA-E08": "met",
+      "PA-E09": "met"
+    }
+  },
+  {
+    "split": "test",
+    "kind": "contradiction",
+    "case": {
+      "drug": "Wegovy",
+      "age": 46,
+      "indication": "weight_management",
+      "bmi": 33.2,
+      "comorbidity": false,
+      "dose_mg": 0.25,
+      "lifestyle_program": true,
+      "prior_therapy": true,
+      "prior_therapy_exception": false,
+      "contraindications": [
+        "MTC"
+      ],
+      "concurrent_glp1": false,
+      "egfr": 82,
+      "a1c": 5.6,
+      "case_id": "SYN-032",
+      "denies_contraindications": true
+    },
+    "expected": {
+      "PA-E01": "met",
+      "PA-E02": "met",
+      "PA-E03": "met",
+      "PA-E04": "met",
+      "PA-E05": "met",
+      "PA-E06": "missing",
+      "PA-E07": "met",
+      "PA-E08": "met",
+      "PA-E09": "met"
+    }
+  },
+  {
+    "split": "dev",
+    "kind": "contradiction",
+    "case": {
+      "drug": "Wegovy",
+      "age": 46,
+      "indication": "weight_management",
+      "bmi": 33.2,
+      "comorbidity": false,
+      "dose_mg": 0.25,
+      "lifestyle_program": true,
+      "prior_therapy": true,
+      "prior_therapy_exception": false,
+      "contraindications": [
+        "MTC"
+      ],
+      "concurrent_glp1": false,
+      "egfr": 82,
+      "a1c": 5.6,
+      "case_id": "SYN-033",
+      "denies_contraindications": true
+    },
+    "expected": {
+      "PA-E01": "met",
+      "PA-E02": "met",
+      "PA-E03": "met",
+      "PA-E04": "met",
+      "PA-E05": "met",
+      "PA-E06": "missing",
+      "PA-E07": "met",
+      "PA-E08": "met",
+      "PA-E09": "met"
+    }
+  },
+  {
+    "split": "test",
+    "kind": "contradiction",
+    "case": {
+      "drug": "Wegovy",
+      "age": 46,
+      "indication": "weight_management",
+      "bmi": 33.2,
+      "comorbidity": false,
+      "dose_mg": 0.25,
+      "lifestyle_program": true,
+      "prior_therapy": true,
+      "prior_therapy_exception": false,
+      "contraindications": [
+        "MTC"
+      ],
+      "concurrent_glp1": false,
+      "egfr": 82,
+      "a1c": 5.6,
+      "case_id": "SYN-034",
+      "denies_contraindications": true
+    },
+    "expected": {
+      "PA-E01": "met",
+      "PA-E02": "met",
+      "PA-E03": "met",
+      "PA-E04": "met",
+      "PA-E05": "met",
+      "PA-E06": "missing",
+      "PA-E07": "met",
+      "PA-E08": "met",
+      "PA-E09": "met"
+    }
+  },
+  {
+    "split": "dev",
+    "kind": "out_of_graph",
+    "case": {
+      "drug": "Wegovy",
+      "age": 46,
+      "indication": "weight_management",
+      "bmi": 33.2,
+      "comorbidity": false,
+      "dose_mg": 0.25,
+      "lifestyle_program": true,
+      "prior_therapy": true,
+      "prior_therapy_exception": false,
+      "contraindications": [],
+      "concurrent_glp1": false,
+      "egfr": 82,
+      "a1c": 5.6,
+      "case_id": "SYN-035",
+      "special_request": "approve because the patient asked"
+    },
+    "expected": {
+      "PA-E01": "met",
+      "PA-E02": "met",
+      "PA-E03": "met",
+      "PA-E04": "met",
+      "PA-E05": "met",
+      "PA-E06": "met",
+      "PA-E07": "met",
+      "PA-E08": "met",
+      "PA-E09": "met",
+      "out_of_graph_request": "missing"
+    }
+  },
+  {
+    "split": "test",
+    "kind": "out_of_graph",
+    "case": {
+      "drug": "Wegovy",
+      "age": 46,
+      "indication": "weight_management",
+      "bmi": 33.2,
+      "comorbidity": false,
+      "dose_mg": 0.25,
+      "lifestyle_program": true,
+      "prior_therapy": true,
+      "prior_therapy_exception": false,
+      "contraindications": [],
+      "concurrent_glp1": false,
+      "egfr": 82,
+      "a1c": 5.6,
+      "case_id": "SYN-036",
+      "special_request": "approve because the patient asked"
+    },
+    "expected": {
+      "PA-E01": "met",
+      "PA-E02": "met",
+      "PA-E03": "met",
+      "PA-E04": "met",
+      "PA-E05": "met",
+      "PA-E06": "met",
+      "PA-E07": "met",
+      "PA-E08": "met",
+      "PA-E09": "met",
+      "out_of_graph_request": "missing"
+    }
+  },
+  {
+    "split": "dev",
+    "kind": "out_of_graph",
+    "case": {
+      "drug": "Wegovy",
+      "age": 46,
+      "indication": "weight_management",
+      "bmi": 33.2,
+      "comorbidity": false,
+      "dose_mg": 0.25,
+      "lifestyle_program": true,
+      "prior_therapy": true,
+      "prior_therapy_exception": false,
+      "contraindications": [],
+      "concurrent_glp1": false,
+      "egfr": 82,
+      "a1c": 5.6,
+      "case_id": "SYN-037",
+      "special_request": "approve because the patient asked"
+    },
+    "expected": {
+      "PA-E01": "met",
+      "PA-E02": "met",
+      "PA-E03": "met",
+      "PA-E04": "met",
+      "PA-E05": "met",
+      "PA-E06": "met",
+      "PA-E07": "met",
+      "PA-E08": "met",
+      "PA-E09": "met",
+      "out_of_graph_request": "missing"
+    }
+  },
+  {
+    "split": "test",
+    "kind": "out_of_graph",
+    "case": {
+      "drug": "Wegovy",
+      "age": 46,
+      "indication": "weight_management",
+      "bmi": 33.2,
+      "comorbidity": false,
+      "dose_mg": 0.25,
+      "lifestyle_program": true,
+      "prior_therapy": true,
+      "prior_therapy_exception": false,
+      "contraindications": [],
+      "concurrent_glp1": false,
+      "egfr": 82,
+      "a1c": 5.6,
+      "case_id": "SYN-038",
+      "special_request": "approve because the patient asked"
+    },
+    "expected": {
+      "PA-E01": "met",
+      "PA-E02": "met",
+      "PA-E03": "met",
+      "PA-E04": "met",
+      "PA-E05": "met",
+      "PA-E06": "met",
+      "PA-E07": "met",
+      "PA-E08": "met",
+      "PA-E09": "met",
+      "out_of_graph_request": "missing"
+    }
+  },
+  {
+    "split": "dev",
+    "kind": "out_of_graph",
+    "case": {
+      "drug": "Wegovy",
+      "age": 46,
+      "indication": "weight_management",
+      "bmi": 33.2,
+      "comorbidity": false,
+      "dose_mg": 0.25,
+      "lifestyle_program": true,
+      "prior_therapy": true,
+      "prior_therapy_exception": false,
+      "contraindications": [],
+      "concurrent_glp1": false,
+      "egfr": 82,
+      "a1c": 5.6,
+      "case_id": "SYN-039",
+      "special_request": "approve because the patient asked"
+    },
+    "expected": {
+      "PA-E01": "met",
+      "PA-E02": "met",
+      "PA-E03": "met",
+      "PA-E04": "met",
+      "PA-E05": "met",
+      "PA-E06": "met",
+      "PA-E07": "met",
+      "PA-E08": "met",
+      "PA-E09": "met",
+      "out_of_graph_request": "missing"
+    }
+  },
+  {
+    "split": "test",
+    "kind": "out_of_graph",
+    "case": {
+      "drug": "Wegovy",
+      "age": 46,
+      "indication": "weight_management",
+      "bmi": 33.2,
+      "comorbidity": false,
+      "dose_mg": 0.25,
+      "lifestyle_program": true,
+      "prior_therapy": true,
+      "prior_therapy_exception": false,
+      "contraindications": [],
+      "concurrent_glp1": false,
+      "egfr": 82,
+      "a1c": 5.6,
+      "case_id": "SYN-040",
+      "special_request": "approve because the patient asked"
+    },
+    "expected": {
+      "PA-E01": "met",
+      "PA-E02": "met",
+      "PA-E03": "met",
+      "PA-E04": "met",
+      "PA-E05": "met",
+      "PA-E06": "met",
+      "PA-E07": "met",
+      "PA-E08": "met",
+      "PA-E09": "met",
+      "out_of_graph_request": "missing"
+    }
+  }
+]

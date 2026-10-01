@@ -1,0 +1,3 @@
+# Proposed shadow week
+
+Use only synthetic or customer-approved de-identified cases. Freeze policy version and reviewer rubric before day one. On each of five days, a nurse drafts normally and independently reviews the copilot output without sending it. Record start-to-review time, missing evidence, criterion errors, citation defects, and reviewer edits. Keep case ordering and all overrides. A safety owner audits every draft and zero external actions daily. Promote nothing from shadow mode automatically; a policy owner signs off on graph corrections and a separate deployment decision. Report median and distribution of time saved with paired cases, plus false positives and abstentions. No time-to-draft reduction is claimed from the synthetic evaluation.

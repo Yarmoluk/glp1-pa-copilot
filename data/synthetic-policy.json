@@ -1,0 +1,16 @@
+{
+  "policy_id": "SYN-REGIONAL-WEGOVY-2026-01",
+  "synthetic": true,
+  "scope": "Adult Wegovy injection start request for weight management; fictional regional commercial payer",
+  "edges": [
+    {"id":"PA-E01","from":"wegovy_start","to":"adult_weight_management","relation":"requires","source":"https://www.accessdata.fda.gov/drugsatfda_docs/label/2026/215256s030lbl.pdf","rationale":"Synthetic policy limits the demo to an FDA-labeled adult weight-management start request."},
+    {"id":"PA-E02","from":"adult_weight_management","to":"bmi_30_or_27_with_comorbidity","relation":"requires","source":"https://ams-gateway.uhcprovider.com/content/dam/provider/docs/public/prior-auth/uhccp-pharmacy-forms/d-g/NC-GLP-1-Weight-Management-PA-Form.pdf","rationale":"Public payer BMI pattern, adapted as a fictional criterion; not that payer's determination."},
+    {"id":"PA-E03","from":"wegovy_start","to":"dose_0_25_weekly","relation":"requires","source":"https://www.accessdata.fda.gov/drugsatfda_docs/label/2026/215256s030lbl.pdf","rationale":"Injection start dose in FDA label section 2.2."},
+    {"id":"PA-E04","from":"wegovy_start","to":"lifestyle_program_documented","relation":"requires","source":"https://www.healthpartners.com/ucm/groups/public/@hp/@public/documents/documents/entry_241846.pdf","rationale":"Fictional documentation rule modeled on a public payer pattern."},
+    {"id":"PA-E05","from":"wegovy_start","to":"prior_therapy_documented","relation":"requires","source":"https://www.uhcprovider.com/en/resource-library/news/2025/ma-medicaid-zepbound-phentermine.html","rationale":"Fictional trial-or-exception step; actual sequence varies by plan and is not asserted."},
+    {"id":"PA-E06","from":"wegovy_start","to":"no_label_contraindication","relation":"requires","source":"https://www.accessdata.fda.gov/drugsatfda_docs/label/2026/215256s030lbl.pdf","rationale":"Screen documented MTC, MEN2 and serious semaglutide hypersensitivity."},
+    {"id":"PA-E07","from":"wegovy_start","to":"no_concurrent_glp1","relation":"requires","source":"https://www.healthpartners.com/ucm/groups/public/@hp/@public/documents/documents/entry_241846.pdf","rationale":"Fictional concurrent-therapy check modeled on public payer pattern."},
+    {"id":"PA-E08","from":"wegovy_start","to":"renal_value_documented","relation":"requires","source":"https://www.accessdata.fda.gov/drugsatfda_docs/label/2026/215256s030lbl.pdf","rationale":"Completeness and safety-review prompt only; no eGFR cutoff is encoded."},
+    {"id":"PA-E09","from":"wegovy_start","to":"a1c_documented","relation":"requires","source":"https://www.accessdata.fda.gov/drugsatfda_docs/label/2026/215256s030lbl.pdf","rationale":"Synthetic intake-completeness rule; A1c does not independently decide weight-management eligibility."}
+  ]
+}

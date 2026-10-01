@@ -1,0 +1,20 @@
+# Discovery note — synthetic regional payer
+
+**Setting.** A utilization-review nurse receives a *synthetic* GLP-1 start request with drug, dose, indication, BMI, eGFR, A1c, prior therapies, and contraindication fields. Today the nurse searches a policy PDF and clinical summary, then types a determination. This is an exploration informed by Daniel Yarmoluk's regulated-healthcare, prior-authorization, payer-policy and human-sign-off background; it does not describe a customer deployment. Success means less time to a reviewable draft, every criterion traceable to a declared edge or explicit gap, and zero unreviewed submissions. Time savings are a shadow-week hypothesis, not a measured result.
+
+## Public-source findings (checked 2026-10-01)
+
+- The [2026 FDA Wegovy label](https://www.accessdata.fda.gov/drugsatfda_docs/label/2026/215256s030lbl.pdf), §§2.2, 4, 5.5, gives the injection starting dose as 0.25 mg weekly for four weeks; lists personal/family MTC, MEN2, and serious semaglutide hypersensitivity as contraindications; and calls for renal monitoring when adverse reactions could cause volume depletion. It does **not** provide a universal eGFR authorization cutoff. The app does not invent one.
+- The [HealthPartners public weight-loss-medications policy](https://www.healthpartners.com/ucm/groups/public/@hp/@public/documents/documents/entry_241846.pdf), effective March 2024, illustrates BMI plus risk-factor, lifestyle-program, visit-attestation and concurrent GLP-1 checks. This is a pattern, **not this fictional payer's policy**. Its actual benefit and plan terms cannot be inferred for a case.
+- The [NC Medicaid GLP-1 PA form](https://ams-gateway.uhcprovider.com/content/dam/provider/docs/public/prior-auth/uhccp-pharmacy-forms/d-g/NC-GLP-1-Weight-Management-PA-Form.pdf) asks for baseline BMI, adult age and weight-related complications. The [UHC Medicaid announcement](https://www.uhcprovider.com/en/resource-library/news/2025/ma-medicaid-zepbound-phentermine.html) shows that step therapy can be plan-specific. No step requirement is copied into the demo without a declared synthetic-policy edge.
+- [CMS Medicare GLP-1 Bridge FAQs](https://www.cms.gov/files/document/medicare-glp-1-bridge-expectations-faqs.pdf) distinguish coverage paths by indication and plan. This demo is a synthetic regional **commercial** payer; CMS material informs the discovery boundary, not its eligibility rule.
+
+## Existing CKG mapping and gaps
+
+The MIT-licensed bundled `glp1-obesity` domain in [`ckg-mcp`](https://github.com/Yarmoluk/ckg-mcp) has `ConceptID,ConceptLabel,Dependencies,TaxonomyID` rows. Relevant anchors are `28 Semaglutide`, `15 BMI`, `19 T2DM`, `23 CKD`, `26 GLP-1RA`, `33 Dose escalation`, `41 HbA1c endpoints`, `56 Pancreatitis risk`, `57 Thyroid C-cell tumor risk`, and `129 Prior authorization burden`. For example, declared dependency `28→26` relates semaglutide to the drug class. That edge is descriptive; it cannot establish policy eligibility. The bundled CSV has no source URL/hash per edge, so these are navigation anchors, not review-ready authorization citations.
+
+**Missing in the bundled graph:** BMI 30/27 thresholds, a weight-related-comorbidity rule, start-dose schedule, attested lifestyle program, concurrent therapy exclusion, explicit MTC/MEN2/hypersensitivity screening, step sequence, payer benefit terms, and any eGFR threshold. A1c is context, not an automatic obesity-authorization criterion. The demo's separate `data/synthetic-policy.json` declares the narrow fictional rules it uses, each with its source pattern. Unknown criterion, missing evidence, or contradictory submitted facts yields a gap rather than a generated assertion. A reviewer must certify any real customer's graph before use.
+
+## Scope hypothesis
+
+Start with **Wegovy injection for adult weight management only**. A denial is a *draft recommendation for nurse review*, never an adverse benefit determination. Other drugs, indications, age groups, unusual dosing, plan exclusions, and unencoded steps stop as gaps. No real PHI belongs in this demo.

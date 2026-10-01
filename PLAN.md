@@ -16,3 +16,9 @@ This standalone directory is intended to become its own public repository. No re
 1. Remove the copied public `glp1-obesity` domain CSV from the runnable demo and any runtime dependency on it.
 2. State plainly across README and docs that this is a synthetic consumer-side illustration. It contains no CKG discovery, extraction, compression, source hashing, or production generation process.
 3. Retain the synthetic edge traversal, case evaluation, citations, human gate, and docs visual; rerun tests/docs and publish the clarification.
+
+## Phase 4 — verbalizer boundary and claims correction
+1. Keep the synthetic rule walk authoritative; add a keyless faithful/hostile stub and optional live verbalizer.
+2. Reject unsupported citations and outcome changes before a draft enters pending review; audit renderer identity and blocked output.
+3. Add four separate verbalizer cases, preserve the frozen 20-case split, and gate CI.
+4. Reorder claims and clarify the fixture scope in README and MkDocs; verify and publish the site.

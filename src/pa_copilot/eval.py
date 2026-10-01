@@ -46,9 +46,10 @@ def run(split: str = "test", graph: Graph | None = None) -> dict:
         by_kind[row["kind"]]=by_kind.get(row["kind"],0)+1
     p=tp/(tp+fp) if tp+fp else 0
     recall=tp/(tp+fn) if tp+fn else 0
-    return {"split":split,"cases":len(rows),"case_mix":by_kind,"citation_coverage":covered/sentences if sentences else 0,
+    return {"split":split,"cases":len(rows),"case_mix":by_kind,"invalid_action_count":invalid,
             "out_of_graph_abstention_rate":out_abstained/out_total if out_total else 0,
-            "criterion_precision":p,"criterion_recall":recall,"invalid_action_count":invalid,
+            "citation_coverage":covered/sentences if sentences else 0,
+            "criterion_precision":p,"criterion_recall":recall,
             "lexical_tokens_per_case_graph":round(graph_tokens/len(rows),1),"lexical_tokens_per_case_naive_rag":round(rag_tokens/len(rows),1),
             "token_note":"Lexical-token proxy counts case+top-5 policy chunks for RAG; graph count includes traversed edge rationales+draft. No LLM call or billed-token claim."}
 

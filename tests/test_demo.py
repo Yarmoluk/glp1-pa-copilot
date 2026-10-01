@@ -62,3 +62,41 @@ def test_review_edit_logs_diff_and_no_submit_endpoint(tmp_path, monkeypatch):
     assert reviewed["status"]=="reviewed_edit" and "-PA-E01" in reviewed["diff"]
     assert client.post("/cases/SYN-001/submit").status_code==404
     assert json.loads(api.AUDIT.read_text().splitlines()[-1])["diff"]==reviewed["diff"]
+
+def test_renderer_id_and_rejected_hostile_output(tmp_path, monkeypatch):
+    monkeypatch.setattr(api, "AUDIT", tmp_path / "audit.jsonl")
+    api.STORE.clear()
+    monkeypatch.setenv("VERBALIZER", "rule-walk")
+    client = TestClient(api.app)
+    accepted = client.post("/cases/draft", json=sample())
+    assert accepted.status_code == 200
+    assert accepted.json()["renderer_id"] == "rule-walk-v1"
+    assert json.loads(api.AUDIT.read_text().splitlines()[-1])["renderer_id"] == "rule-walk-v1"
+    monkeypatch.setenv("VERBALIZER", "stub-hostile")
+    hostile = {**sample(), "case_id": "SYN-hostile"}
+    rejected = client.post("/cases/draft", json=hostile)
+    assert rejected.status_code == 422
+    assert "SYN-hostile" not in api.STORE
+    event = json.loads(api.AUDIT.read_text().splitlines()[-1])
+    assert event["action"] == "draft_rejected" and event["renderer_id"] == "verbalizer-stub-v1"
+    assert event["status"] == "blocked_invalid_citation"
+    monkeypatch.setenv("VERBALIZER", "stub")
+    stubbed = client.post("/cases/draft", json={**sample(), "case_id": "SYN-stub"})
+    assert stubbed.status_code == 200
+    assert stubbed.json()["renderer_id"] == "verbalizer-stub-v1"
+    assert json.loads(api.AUDIT.read_text().splitlines()[-1])["renderer_id"] == "verbalizer-stub-v1"
+
+
+def test_verbalizer_cases_and_outcome_gate(monkeypatch):
+    from pa_copilot.verbalizer import StubVerbalizer, citation_errors, select_verbalizer
+    from pa_copilot.verbalizer_eval import run as run_verbalizer
+    result = run_verbalizer()
+    assert result["cases"] == result["passed"] == 4
+    results, _ = evaluate(sample(), Graph())
+    altered = StubVerbalizer().verbalize(results).replace("PA-E02: met;", "PA-E02: missing;")
+    assert citation_errors(altered, results)
+    fabricated_inside_line = StubVerbalizer().verbalize(results).replace("PA-E02: met;", "PA-E02: met; PA-E999 says so;")
+    assert citation_errors(fabricated_inside_line, results)
+    monkeypatch.setenv("VERBALIZER", "live")
+    monkeypatch.delenv("OPENAI_API_KEY", raising=False)
+    assert select_verbalizer().renderer_id == "verbalizer-stub-v1"

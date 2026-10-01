@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>GLP-1 PA draft copilot · synthetic</title>
+  <title>GLP-1 prior-authorization draft gate · synthetic</title>
   <style>
     :root { font-family: Inter, system-ui, sans-serif; color: #173b3b; background: #f3f7f3; }
     * { box-sizing: border-box; }
@@ -53,7 +53,7 @@
     <div class="context-math">335 domain queries<br>= 1,000,000 tokens · RAG<br>= 90,000 tokens · RAG + CKG</div>
   </header>
   <main>
-    <div class="notice"><strong>Human gate:</strong> this app can draft and flag. It cannot submit a request, contact a prescriber, or set an approval bit. Use synthetic data only.</div>
+    <div class="notice"><strong>Human gate:</strong> rule walk → optional verbalizer → human accept or edit. A model cannot add an edge. This app cannot submit a request, contact a prescriber, or set an approval bit. Use synthetic data only.</div>
     <div class="grid">
       <section class="card" aria-labelledby="case-heading">
         <h2 id="case-heading">1. Choose or paste a case</h2>
@@ -71,6 +71,7 @@
         <h2 id="path-heading">2. Inspect the path</h2>
         <p class="subtle">Each row names the criterion, result, edge ID, and public source pattern.</p>
         <span class="status" id="status">No draft yet</span>
+        <p class="subtle" id="renderer">Renderer: —</p>
         <h3>Traversed criteria</h3><pre id="path">Choose a case and draft to inspect its edges.</pre>
         <h3>Explicit gaps</h3><pre id="gaps">—</pre>
       </section>
@@ -106,6 +107,7 @@
         if (!response.ok) throw Error(JSON.stringify(data));
         current = data.case_id;
         $('status').textContent = `${data.status} · ${data.disposition}`;
+        $('renderer').textContent = `Renderer: ${data.renderer_id}`;
         $('status').classList.toggle('gap', data.gaps.length > 0);
         $('path').textContent = data.path.map(item => `${item.criterion} → ${item.outcome} | ${item.edge_ids.join(',') || 'MISSING'} | ${item.detail}${item.source ? ` | ${item.source}` : ''}`).join('\n');
         $('gaps').textContent = data.gaps.join('\n') || 'None';

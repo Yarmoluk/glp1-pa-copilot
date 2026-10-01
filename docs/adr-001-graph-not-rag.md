@@ -1,6 +1,6 @@
 # ADR-001: declared graph before prose retrieval
 
-**Decision.** Traverse explicit criterion edges first, then render a fixed sentence template from each returned result. The model boundary is a replaceable verbalizer that receives only edge-backed result objects; the default uses no external model. The service never asks an LLM to decide eligibility. A naive text-retrieval control appears only in evaluation.
+**Decision.** Traverse explicit criterion edges first, then render each returned result with `rule-walk-v1` or pass those results to an optional verbalizer. The citation and outcome gate rejects any invented edge or changed criterion result. The default uses no external model. The service never asks an LLM to decide eligibility. A naive text-retrieval control appears only in evaluation.
 
 **Why.** Authorization criteria are compositional and versioned. A chunk that mentions BMI or eGFR cannot alone establish the conjunction, exception, plan scope, or source. A typed edge can be named, inspected, removed and challenged. `ckg-mcp`'s `glp1-obesity` domain provides descriptive anchors but lacks PA rules and per-edge source provenance, so the thin local adapter reads only an explicit synthetic-policy fixture. The repo does not implement CKG creation. Missing overlay edge means abstain.
 

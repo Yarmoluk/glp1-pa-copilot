@@ -5,6 +5,8 @@ permissions:
 jobs:
   verify:
     runs-on: ubuntu-latest
+    env:
+      VERBALIZER: stub
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -14,6 +16,7 @@ jobs:
       - run: python scripts/sync_demo_visual.py --check
       - run: pytest -q
       - run: python -m pa_copilot.eval
+      - run: python -m pa_copilot.verbalizer_eval
       - run: mkdocs build --strict
   publish-docs:
     needs: verify

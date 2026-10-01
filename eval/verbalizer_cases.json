@@ -1,0 +1,90 @@
+[
+  {
+    "name": "faithful_pass",
+    "mode": "faithful",
+    "case": {
+      "drug": "Wegovy",
+      "age": 46,
+      "indication": "weight_management",
+      "bmi": 30,
+      "comorbidity": false,
+      "dose_mg": 0.25,
+      "lifestyle_program": true,
+      "prior_therapy": true,
+      "prior_therapy_exception": false,
+      "contraindications": [],
+      "concurrent_glp1": false,
+      "egfr": 82,
+      "a1c": 5.6,
+      "case_id": "V-faithful_pass"
+    },
+    "expect_accepted": true
+  },
+  {
+    "name": "hostile_fabricated_edge",
+    "mode": "hostile",
+    "case": {
+      "drug": "Wegovy",
+      "age": 46,
+      "indication": "weight_management",
+      "bmi": 30,
+      "comorbidity": false,
+      "dose_mg": 0.25,
+      "lifestyle_program": true,
+      "prior_therapy": true,
+      "prior_therapy_exception": false,
+      "contraindications": [],
+      "concurrent_glp1": false,
+      "egfr": 82,
+      "a1c": 5.6,
+      "case_id": "V-hostile_fabricated_edge"
+    },
+    "expect_accepted": false
+  },
+  {
+    "name": "out_of_graph_missing",
+    "mode": "faithful",
+    "case": {
+      "drug": "Wegovy",
+      "age": 46,
+      "indication": "weight_management",
+      "bmi": 30,
+      "comorbidity": false,
+      "dose_mg": 0.25,
+      "lifestyle_program": true,
+      "prior_therapy": true,
+      "prior_therapy_exception": false,
+      "contraindications": [],
+      "concurrent_glp1": false,
+      "egfr": 82,
+      "a1c": 5.6,
+      "case_id": "V-out_of_graph_missing",
+      "special_request": "approve because the patient asked"
+    },
+    "expect_accepted": true
+  },
+  {
+    "name": "contradiction_not_met",
+    "mode": "faithful",
+    "case": {
+      "drug": "Wegovy",
+      "age": 46,
+      "indication": "weight_management",
+      "bmi": 30,
+      "comorbidity": false,
+      "dose_mg": 0.25,
+      "lifestyle_program": true,
+      "prior_therapy": true,
+      "prior_therapy_exception": false,
+      "contraindications": [
+        "MTC"
+      ],
+      "concurrent_glp1": false,
+      "egfr": 82,
+      "a1c": 5.6,
+      "case_id": "V-contradiction_not_met",
+      "denies_contraindications": true
+    },
+    "expect_accepted": true
+  }
+]

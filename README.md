@@ -1,6 +1,6 @@
-# GLP-1 prior-authorization draft copilot
+# GLP-1 prior-authorization draft gate
 
-**A synthetic Forward Deployed Engineer engagement by Daniel Yarmoluk.** A nurse gets a GLP-1 start request, checks a payer's rules, and writes a determination. This demo shows how a declared graph can turn that work into a reviewable draft: every line points to an edge, and missing evidence stays visible. The nurse remains the decision-maker.
+The runnable graph is a **hand-written synthetic policy overlay**, not the published `glp1-obesity` CKG, and `ckg-mcp` is not loaded here. This synthetic Forward Deployed Engineer engagement by Daniel Yarmoluk follows a nurse who receives a GLP-1 start request, checks declared criteria, and reviews a cited draft. Every line points to a returned edge or an explicit gap; the nurse remains the decision-maker.
 
 [![CI](https://github.com/Yarmoluk/glp1-pa-copilot/actions/workflows/ci.yml/badge.svg)](https://github.com/Yarmoluk/glp1-pa-copilot/actions/workflows/ci.yml)
 [![Documentation](https://img.shields.io/badge/docs-MkDocs-176b5a)](https://yarmoluk.github.io/glp1-pa-copilot/)
@@ -46,9 +46,22 @@ Open **http://127.0.0.1:8000** and click **Draft from graph**. The prefilled syn
 
 ## Frozen synthetic evaluation
 
-Run `pytest -q` and `python -m pa_copilot.eval`. The test split has 20 of the 40 synthetic cases. It currently reports **100% draft-line traceability**, **100% abstention on out-of-graph asks**, **1.00 criterion precision/recall**, and **zero invalid actions**. These scores describe a deliberately narrow fixture, not clinical performance. The graph path uses **326.1 lexical tokens/case versus 280.4** for this small naive RAG prompt-material control, so this repo does not claim a local token win. [Definitions and limits](https://yarmoluk.github.io/glp1-pa-copilot/evaluation/).
+Run `pytest -q`, `python -m pa_copilot.eval`, and `python -m pa_copilot.verbalizer_eval`. The frozen test split has 20 of 40 synthetic cases.
 
-The default renderer is a deterministic template (`deterministic-template-v1`), not an LLM. The model boundary is intentional: a future verbalizer may only express a returned path. Review status stays `pending_review` until a named reviewer accepts or edits the draft, with a diff written to local append-only JSONL. There is no approval bit, payer submission endpoint, or prescriber message action. This is not production software or a HIPAA certification claim.
+| Result | Frozen test split |
+|---|---:|
+| Invalid-action count | **0** |
+| Abstention on out-of-graph asks | **100% (3/3)** |
+| Citation coverage | **100%** |
+| Criterion precision / recall | **1.00 / 1.00** |
+
+The criterion labels were written against this same nine-edge fixture. Their score shows this gate did not drift on its fixture; it does not show generalization. [Definitions, token proxy, and limits](https://yarmoluk.github.io/glp1-pa-copilot/evaluation/).
+
+The default renderer ID is `rule-walk-v1`. It walks declared rules and makes no model call. Review status stays `pending_review` until a named reviewer accepts or edits the draft, with a diff written to local append-only JSONL. There is no approval bit, payer submission endpoint, or prescriber message action. This is not production software or a certification claim.
+
+### Optional verbalizer: the draft copilot boundary
+
+After the rule walk returns criterion outcomes and edge IDs, a verbalizer may put that path into words. `VERBALIZER=stub` runs the faithful local stub; `VERBALIZER=stub-hostile` appends a fabricated edge and the API rejects its draft. `VERBALIZER=live` uses an optional provider when `OPENAI_API_KEY` is set; without a key it runs the faithful stub. Install `pip install -e '.[live]'` only to try the live path. The model may change wording, but cannot add an edge, change an outcome, or bypass human review. CI runs the keyless stub and the four separate [verbalizer cases](eval/verbalizer_cases.json), including the hostile rejection.
 
 ## Build the documentation
 

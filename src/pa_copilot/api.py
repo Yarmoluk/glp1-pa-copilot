@@ -12,13 +12,13 @@ from fastapi import FastAPI, HTTPException
 from fastapi.responses import FileResponse
 from pydantic import BaseModel, Field
 from .core import Graph, evaluate, render, ROOT
+from .verbalizer import citation_errors, select_verbalizer
 
-app = FastAPI(title="Synthetic GLP-1 PA draft copilot")
+app = FastAPI(title="Synthetic GLP-1 prior-authorization draft gate")
 GRAPH = Graph()
 AUDIT = Path(os.environ.get("AUDIT_PATH", str(ROOT / "audit.jsonl")))
 STORE: dict[str, dict] = {}
 LOCK = threading.Lock()
-MODEL_ID = "deterministic-template-v1"
 
 class CaseRequest(BaseModel):
     case_id: str = Field(min_length=1, max_length=80, pattern=r"^[A-Za-z0-9_-]+$")
@@ -63,6 +63,8 @@ def valid_citations(draft: str, allowed: set[str]) -> bool:
         cites = {x.strip() for x in match.group(1).split(",")}
         if not cites or not cites <= allowed | {"MISSING"}:
             return False
+        if any(edge_id not in allowed for edge_id in re.findall(r"\bPA-E\d+\b", sentence)):
+            return False
     return True
 
 @app.get("/")
@@ -80,15 +82,26 @@ def draft_case(case: CaseRequest):
         raise HTTPException(503, {"graph_errors": errors})
     payload = case.model_dump()
     results, calls = evaluate(payload, GRAPH)
-    draft, disposition, gaps = render(results)
+    _, disposition, gaps = render(results)
     edge_ids = sorted({eid for r in results for eid in r.edge_ids})
+    try:
+        verbalizer = select_verbalizer()
+        draft = verbalizer.verbalize(results)
+    except Exception as exc:
+        raise HTTPException(503, f"verbalizer unavailable: {type(exc).__name__}") from exc
+    errors = citation_errors(draft, results)
+    if errors:
+        audit({"action": "draft_rejected", "case_id": case.case_id, "tool_calls": calls,
+               "edge_ids": edge_ids, "renderer_id": verbalizer.renderer_id,
+               "reviewer_id": None, "status": "blocked_invalid_citation", "validation_errors": errors})
+        raise HTTPException(422, {"validation_errors": errors})
     record = {"case_id": case.case_id, "policy_id": GRAPH.policy_id, "status": "pending_review", "disposition": disposition, "draft": draft, "gaps": gaps,
-              "path": [{**r.__dict__, "source": GRAPH.edges.get(r.criterion, {}).get("source"), "relation": GRAPH.edges.get(r.criterion, {}).get("relation")} for r in results], "edge_ids": edge_ids, "tool_calls": calls, "model_id": MODEL_ID}
+              "path": [{**r.__dict__, "source": GRAPH.edges.get(r.criterion, {}).get("source"), "relation": GRAPH.edges.get(r.criterion, {}).get("relation")} for r in results], "edge_ids": edge_ids, "tool_calls": calls, "renderer_id": verbalizer.renderer_id}
     with LOCK:
         if case.case_id in STORE:
             raise HTTPException(409, "case id already exists in this process")
         STORE[case.case_id] = record
-    audit({"action": "draft", "case_id": case.case_id, "tool_calls": calls, "edge_ids": edge_ids, "model_id": MODEL_ID, "reviewer_id": None, "status": "pending_review"})
+    audit({"action": "draft", "case_id": case.case_id, "tool_calls": calls, "edge_ids": edge_ids, "renderer_id": verbalizer.renderer_id, "reviewer_id": None, "status": "pending_review"})
     return record
 
 @app.get("/cases/{case_id}")
@@ -115,6 +128,6 @@ def review(case_id: str, request: ReviewRequest):
         record["reviewer_id"] = request.reviewer_id
         record["reviewed_at"] = datetime.now(timezone.utc).isoformat()
         record["diff"] = diff
-    audit({"action": "review", "case_id": case_id, "tool_calls": [], "edge_ids": record["edge_ids"], "model_id": MODEL_ID,
+    audit({"action": "review", "case_id": case_id, "tool_calls": [], "edge_ids": record["edge_ids"], "renderer_id": record["renderer_id"],
            "reviewer_id": request.reviewer_id, "status": record["status"], "diff": diff})
     return record

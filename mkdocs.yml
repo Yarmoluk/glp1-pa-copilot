@@ -1,4 +1,4 @@
-site_name: GLP-1 PA draft copilot
+site_name: GLP-1 prior-authorization draft gate
 site_description: A synthetic, graph-grounded prior-authorization draft workflow with a human review gate.
 site_url: https://yarmoluk.github.io/glp1-pa-copilot/
 repo_url: https://github.com/Yarmoluk/glp1-pa-copilot

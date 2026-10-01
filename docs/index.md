@@ -6,8 +6,8 @@ hide:
 
 <div class="pa-hero" markdown>
   <p class="pa-eyebrow">A FORWARD DEPLOYED ENGINEERING CASE STUDY</p>
-  <h1>Can a draft explain exactly why it says what it says?</h1>
-  <p class="pa-lead">A nurse receives a GLP-1 prior-authorization request. This synthetic copilot checks declared policy relationships, drafts a response with edge citations, and stops for human review.</p>
+  <h1>GLP-1 prior-authorization draft gate</h1>
+  <p class="pa-lead">The runnable graph is a hand-written synthetic policy overlay, not the published <code>glp1-obesity</code> CKG, and <code>ckg-mcp</code> is not loaded here. A nurse receives a synthetic GLP-1 request; the rule walk checks declared relationships, an optional verbalizer words the returned path, and a human reviews the cited draft.</p>
   <div class="pa-actions">
     <a class="pa-button pa-button-primary" href="graph/">Explore the interactive graph →</a>
     <a class="pa-button pa-button-secondary" href="run/">Clone and run the demo</a>
@@ -34,7 +34,7 @@ The service walks declared synthetic policy edges. It checks submitted facts aga
 </div>
 <div class="pa-card" markdown>
 ### 03 · The handoff
-Every draft line ends in an edge ID or `MISSING`. A nurse can accept or edit the *draft review*; the app cannot submit or approve a request.
+Every draft line ends in a returned edge ID or `MISSING`. The optional verbalizer cannot add an edge. A nurse can accept or edit the *draft review*; the app cannot submit or approve a request.
 </div>
 </div>
 
@@ -46,6 +46,17 @@ Every draft line ends in an edge ID or `MISSING`. A nurse can accept or edit the
 | Same case, eGFR omitted | `needs_information`, with `PA-E08` under Explicit gaps | The draft exposes the gap instead of filling it from a model's memory. |
 
 `eligible_for_review` is a **draft disposition**, not a benefit approval. Both examples stay `pending_review` until a named reviewer acts locally. [Walk through them in the app](run.md), or [click the graph first](graph.md).
+
+## What the frozen test split shows
+
+| Result | 20 synthetic test cases |
+|---|---:|
+| Invalid-action count | **0** |
+| Abstention on out-of-graph asks | **100% (3/3)** |
+| Citation coverage | **100%** |
+| Criterion precision / recall | **1.00 / 1.00** |
+
+The criterion labels were written against this same nine-edge fixture. The score shows the gate did not drift on that fixture; it does not establish generalization. [See the evaluation design and limits](evaluation.md).
 
 !!! note "What is real here?"
     The product concept, public FDA and payer source patterns, code, tests, and audit design are real. The payer, its policy graph, and all cases are synthetic. The private CKG creation process is not included. The demo is not a customer deployment or a clinical decision system.

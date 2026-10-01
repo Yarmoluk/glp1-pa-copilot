@@ -43,9 +43,10 @@ In a second terminal with the virtual environment active:
 ```bash
 pytest -q
 python -m pa_copilot.eval
+python -m pa_copilot.verbalizer_eval
 ```
 
-The evaluation command prints the frozen test-split table as JSON and exits nonzero if its invalid-action count is above zero. The [evaluation guide](evaluation.md) explains each metric and its limits.
+The first evaluation command prints the frozen test-split table as JSON and exits nonzero if its invalid-action count is above zero. The second checks four separate verbalizer boundary cases, including a hostile draft that must be rejected. To run the faithful keyless stub in the app, restart with `VERBALIZER=stub uvicorn pa_copilot.api:app --host 127.0.0.1 --port 8000`. The default is `rule-walk-v1`; `VERBALIZER=live` without `OPENAI_API_KEY` also falls back to the faithful stub. The [evaluation guide](evaluation.md) explains each metric and its limits.
 
 !!! warning "Synthetic data only"
     Do not paste patient information into this public portfolio app. The local audit file is an illustrative append-only JSONL log, not a production medical record or tamper-evident audit service.

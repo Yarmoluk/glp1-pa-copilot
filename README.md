@@ -14,7 +14,9 @@
 
 A prior-authorization request asks whether a treatment meets a plan's rules. A search engine can find a relevant paragraph; it cannot, by itself, show that *this* submitted case satisfied *that* exact criterion. Here, the criteria are declared as named graph edges. The app walks those edges, checks the submitted fields, and writes a draft whose sentences end in an edge ID or `MISSING`. The draft cannot be submitted to a payer.
 
-The payer, policy overlay, and all 40 cases are **synthetic**. The underlying `glp1-obesity` descriptive domain comes from the MIT-licensed [`ckg-mcp`](https://github.com/Yarmoluk/ckg-mcp) package. That domain does not contain payer authorization thresholds. The separate, explicitly synthetic overlay is in [`data/synthetic-policy.json`](data/synthetic-policy.json), with public source-pattern links explained in the [discovery note](docs/discovery.md). No hosted MCP key or model API key is needed to run this repo.
+The payer, policy overlay, and all 40 cases are **synthetic**. The runnable graph is only the hand-specified [illustrative policy fixture](data/synthetic-policy.json). The separate public [`ckg-mcp`](https://github.com/Yarmoluk/ckg-mcp) package informed the discovery map; this repo does not load or redistribute its `glp1-obesity` domain. No hosted MCP key or model API key is needed.
+
+> **Public demo boundary:** This repository shows how a consumer can traverse a small declared edge list and draft with citations. It does **not** contain Graphify.md's CKG discovery, extraction, compression, source-hashing, or graph-construction process. [Read the scope statement](docs/scope.md).
 
 ## Clone and run in about 90 seconds
 
@@ -40,6 +42,7 @@ Open **http://127.0.0.1:8000** and click **Draft from graph**. The prefilled syn
 | Source-to-edge mapping | [Discovery note](docs/discovery.md) and [synthetic policy](data/synthetic-policy.json) |
 | Evaluation design | [Evaluation guide](https://yarmoluk.github.io/glp1-pa-copilot/evaluation/), [cases](eval/cases.json), and [`eval.py`](src/pa_copilot/eval.py) |
 | Customer ownership | [Handoff](docs/handoff.md) and [shadow-week plan](docs/shadow-week.md) |
+| Public vs private boundary | [What this demo shows](docs/scope.md) |
 
 ## Frozen synthetic evaluation
 
@@ -51,7 +54,7 @@ The default renderer is a deterministic template (`deterministic-template-v1`), 
 
 ```bash
 python -m pip install -r requirements-docs.txt
-python scripts/build_graph_snapshot.py --check
+python scripts/sync_demo_visual.py --check
 mkdocs serve
 ```
 

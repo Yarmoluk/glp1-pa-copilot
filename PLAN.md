@@ -11,3 +11,8 @@ This standalone directory is intended to become its own public repository. No re
 2. Draw vector artwork and a graph explorer whose edge IDs and source links are generated from the synthetic policy file.
 3. Refresh README for a recruiter: visual overview, clone commands, site link, proof table, and short reading path.
 4. Build docs in strict mode, verify graph interactions in a browser, run tests and evaluation, then publish the site and verify public access.
+
+## Phase 3 — public process boundary
+1. Remove the copied public `glp1-obesity` domain CSV from the runnable demo and any runtime dependency on it.
+2. State plainly across README and docs that this is a synthetic consumer-side illustration. It contains no CKG discovery, extraction, compression, source hashing, or production generation process.
+3. Retain the synthetic edge traversal, case evaluation, citations, human gate, and docs visual; rerun tests/docs and publish the clarification.

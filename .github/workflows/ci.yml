@@ -11,7 +11,7 @@ jobs:
         with:
           python-version: '3.11'
       - run: python -m pip install -e '.[test]' -r requirements-docs.txt
-      - run: python scripts/build_graph_snapshot.py --check
+      - run: python scripts/sync_demo_visual.py --check
       - run: pytest -q
       - run: python -m pa_copilot.eval
       - run: mkdocs build --strict

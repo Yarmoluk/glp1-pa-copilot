@@ -9,6 +9,7 @@ nav:
   - Explore the graph: graph.md
   - Run the demo: run.md
   - How it works: how-it-works.md
+  - Public demo scope: scope.md
   - Evaluation: evaluation.md
   - Decisions and handoff:
       - Discovery: discovery.md

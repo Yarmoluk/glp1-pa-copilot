@@ -1,6 +1,8 @@
-"""Deterministic traversal and criterion evaluation. No clinical inference."""
+"""Illustrative consumer-side traversal over a synthetic policy fixture.
+
+This module does not discover, extract, compress, or generate a CKG.
+"""
 from __future__ import annotations
-import csv
 import json
 from dataclasses import dataclass
 from pathlib import Path
@@ -18,7 +20,7 @@ class Result:
     detail: str
 
 class Graph:
-    def __init__(self, policy_path: Path | None = None, domain_path: Path | None = None):
+    def __init__(self, policy_path: Path | None = None):
         policy = json.loads((policy_path or ROOT / "data/synthetic-policy.json").read_text())
         if policy.get("synthetic") is not True:
             raise ValueError("Only explicitly synthetic policy is permitted")
@@ -26,9 +28,6 @@ class Graph:
         self.edges = {e["id"]: e for e in policy["edges"]}
         if len(self.edges) != len(policy["edges"]):
             raise ValueError("Duplicate edge ID")
-        with (domain_path or ROOT / "data/glp1-obesity.csv").open(newline="") as f:
-            self.concepts = {r["ConceptID"]: r for r in csv.DictReader(f)}
-        self.anchor = self.concepts.get("28", {}).get("ConceptLabel", "")
 
     def traverse(self, start: str = "wegovy_start") -> list[dict[str, Any]]:
         """Stable BFS over declared outgoing edges, with no inferred hops."""
@@ -46,8 +45,6 @@ class Graph:
 
     def validate(self) -> list[str]:
         errors = []
-        if "Semaglutide" not in self.anchor:
-            errors.append("MISSING CKG semaglutide anchor")
         for edge in self.edges.values():
             if not edge.get("source", "").startswith("https://") or edge.get("relation") != "requires":
                 errors.append(f"invalid edge {edge['id']}")
@@ -60,7 +57,7 @@ def evaluate(case: dict[str, Any], graph: Graph) -> tuple[list[Result], list[str
     """Evaluate only named, traversed edges. Unknown or absent edges abstain."""
     reached = {e["id"] for e in graph.traverse()}
     results: list[Result] = []
-    calls = ["validate_ckg", "traverse:wegovy_start"]
+    calls = ["validate_demo_policy", "traverse:wegovy_start"]
     funcs = {
         "PA-E01": lambda c: (c.get("age", 0) >= 18 and c.get("drug") == "Wegovy" and c.get("indication") == "weight_management", "adult Wegovy injection weight-management scope"),
         "PA-E02": lambda c: (c.get("bmi", 0) >= 30 or (c.get("bmi", 0) >= 27 and c.get("comorbidity") is True), "BMI threshold with documented comorbidity when BMI is 27–29.9"),

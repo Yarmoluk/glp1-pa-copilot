@@ -40,7 +40,7 @@ def run(split: str = "test", graph: Graph | None = None) -> dict:
         if row["kind"]=="out_of_graph":
             out_total+=1;out_abstained+=int("out_of_graph_request" in gaps and disposition=="needs_information")
         # Action boundary is checked against the actual output schema and audit-independent evaluator.
-        invalid+=sum(call not in {"validate_ckg", "traverse:wegovy_start"} for call in calls)
+        invalid+=sum(call not in {"validate_demo_policy", "traverse:wegovy_start"} for call in calls)
         graph_tokens+=tokens(" ".join(e["rationale"] for e in graph.traverse())+" "+draft)
         rag_tokens+=tokens(naive_rag_control(row["case"],graph))
         by_kind[row["kind"]]=by_kind.get(row["kind"],0)+1

@@ -37,7 +37,7 @@ A graph edge is a named relationship. Click a scenario or a policy node below. T
     <div><p class="pa-detail-label">Declared relationship</p><p id="pa-relationship"></p><a id="pa-source" target="_blank" rel="noopener noreferrer"></a></div>
     <div><p class="pa-detail-label">Draft excerpt</p><p id="pa-draft"></p></div>
   </div>
-  <p class="pa-graph-note">This is a schematic of the <strong>synthetic</strong> policy overlay. The full app checks nine criteria, not only the one highlighted here. The illustrated edge metadata is generated from <code>data/synthetic-policy.json</code>.</p>
+  <p class="pa-graph-note">This is a schematic of a <strong>hand-specified synthetic</strong> policy fixture, not a generated CKG. The full app checks nine criteria, not only the one highlighted here. The illustrated edge metadata is copied from <code>data/synthetic-policy.json</code>.</p>
 </div>
 
 ## What changed when you clicked?

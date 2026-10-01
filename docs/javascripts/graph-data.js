@@ -1,4 +1,4 @@
-// Generated from data/synthetic-policy.json; edit that file, then run scripts/build_graph_snapshot.py.
+// Generated from data/synthetic-policy.json; edit that file, then run scripts/sync_demo_visual.py.
 window.PA_GRAPH_DATA = {
   "edges": {
     "PA-E02": {

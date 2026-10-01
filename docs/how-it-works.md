@@ -10,7 +10,7 @@ graph LR
   D --> E[Named human reviewer]
 ```
 
-The service first loads a descriptive `glp1-obesity` CKG domain and a **separate synthetic policy overlay**. The bundled domain says what concepts such as semaglutide and BMI are related to. It does not contain this fictional payer's authorization thresholds. The overlay names the nine criteria the demo checks, from scope and BMI to dose, prior therapy, safety flags, and documentation fields. Each edge has a stable ID and a public source-pattern link.
+The service loads **only a synthetic policy fixture**. The separate public `glp1-obesity` domain informed the discovery map, but it is not loaded or redistributed here. The fixture names the nine illustrative criteria the demo checks, from scope and BMI to dose, prior therapy, safety flags, and documentation fields. Each edge has a stable ID and a public source-pattern link. This consumer-side code does not create a CKG from documents.
 
 For each case, a deterministic breadth-first traversal returns the reachable policy edges. The evaluator checks only those edges against submitted fields. If an edge is absent, a field is missing, the input contradicts itself, or a request has no matching edge, it emits a gap. The renderer writes only the result objects it receives. The default `model_id` is `deterministic-template-v1`: **no LLM call is made**. This makes the demo's action boundary easy to inspect.
 

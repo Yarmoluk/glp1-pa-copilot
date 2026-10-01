@@ -21,7 +21,7 @@ hide:
 
 A prior-authorization request is a question: **does this request meet this plan's rules, with enough evidence to say so?** A search tool can find paragraphs that *sound* relevant. This demo uses a small, explicit map of relationships instead. Each rule has an ID, a source pattern, and a place in the path from request to draft. If the map cannot support a sentence, the draft says `MISSING`.
 
-The map is called a **Compressed Knowledge Graph (CKG)**. Here, “graph” simply means named things joined by declared relationships. A path such as *Wegovy start → requires → BMI criterion* is checkable. It is not a clinical diagnosis, a coverage decision, or a substitute for the nurse.
+Graphify.md calls its product a **Compressed Knowledge Graph (CKG)**. This page uses a tiny, hand-specified **illustrative policy graph** so you can see the consumer-side behavior. Here, “graph” simply means named things joined by declared relationships. A path such as *Wegovy start → requires → BMI criterion* is checkable. It is not a clinical diagnosis, a coverage decision, or a substitute for the nurse.
 
 <div class="pa-card-grid" markdown>
 <div class="pa-card" markdown>
@@ -48,7 +48,7 @@ Every draft line ends in an edge ID or `MISSING`. A nurse can accept or edit the
 `eligible_for_review` is a **draft disposition**, not a benefit approval. Both examples stay `pending_review` until a named reviewer acts locally. [Walk through them in the app](run.md), or [click the graph first](graph.md).
 
 !!! note "What is real here?"
-    The product concept, public FDA and payer source patterns, CKG package, code, tests, and audit design are real. The payer, its policy overlay, and all cases are synthetic. The demo is not a customer deployment or a clinical decision system.
+    The product concept, public FDA and payer source patterns, code, tests, and audit design are real. The payer, its policy graph, and all cases are synthetic. The private CKG creation process is not included. The demo is not a customer deployment or a clinical decision system.
 
 ## Where to go next
 

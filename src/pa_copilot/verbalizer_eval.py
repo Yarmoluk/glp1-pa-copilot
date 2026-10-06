@@ -1,4 +1,5 @@
 """Separate frozen cases for the verbalizer boundary; no test-split tuning."""
+
 from __future__ import annotations
 
 import json
@@ -19,9 +20,23 @@ def run() -> dict:
         if row["name"] == "out_of_graph_missing":
             passed &= "out_of_graph_request: missing" in draft and "[MISSING]" in draft
         if row["name"] == "contradiction_not_met":
-            passed &= "PA-E06: missing; contradictory" in draft and "PA-E06: met;" not in draft
-        outcomes.append({"case": row["name"], "accepted": accepted, "expected": row["expect_accepted"], "passed": bool(passed)})
-    return {"cases": len(outcomes), "passed": sum(row["passed"] for row in outcomes), "results": outcomes}
+            passed &= (
+                "PA-E06: missing; contradictory" in draft
+                and "PA-E06: met;" not in draft
+            )
+        outcomes.append(
+            {
+                "case": row["name"],
+                "accepted": accepted,
+                "expected": row["expect_accepted"],
+                "passed": bool(passed),
+            }
+        )
+    return {
+        "cases": len(outcomes),
+        "passed": sum(row["passed"] for row in outcomes),
+        "results": outcomes,
+    }
 
 
 if __name__ == "__main__":

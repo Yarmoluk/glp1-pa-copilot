@@ -53,7 +53,7 @@ Run `pytest -q`, `python -m pa_copilot.eval`, and `python -m pa_copilot.verbaliz
 | Invalid-action count | **0** |
 | Abstention on out-of-graph asks | **100% (3/3)** |
 | Citation coverage | **100%** |
-| Criterion precision / recall | **1.00 / 1.00** |
+| Criterion precision / recall (fixture consistency, not accuracy) | **1.00 / 1.00** |
 
 The criterion labels were written against this same nine-edge fixture. Their score shows this gate did not drift on its fixture; it does not show generalization. [Definitions, token proxy, and limits](https://yarmoluk.github.io/glp1-pa-copilot/evaluation/).
 
@@ -77,11 +77,6 @@ Open **http://127.0.0.1:8000/glp1-pa-copilot/** for the docs server (use a diffe
 
 Graphify.md's [v0.6.2 paper](https://github.com/Yarmoluk/ckg-benchmark/blob/main/paper/main.pdf) and [harness](https://github.com/Yarmoluk/ckg-benchmark) report Macro-F1 **0.471 vs RAG 0.123**, 5-hop F1 **0.772**, and roughly **269 vs 2,982 tokens/query** on a structural-query benchmark. Those are not results from this prior-authorization app and cannot be transferred to payer cases.
 
-```text
-335 domain queries
-= 1,000,000 tokens · RAG
-= 90,000 tokens · RAG + CKG
-```
 
 The context-window illustration is product positioning, not measured in this repo. Graphify.md provides a model-agnostic [MCP endpoint](https://www.graphifymd.com/api/mcp) with `query_ckg`, `get_prerequisites`, `traverse`, and `validate_ckg`; this clone uses a local adapter so a reviewer can run it without credentials.
 

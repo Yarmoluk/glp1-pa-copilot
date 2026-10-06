@@ -1,4 +1,5 @@
 """Optional wording stage. The rule walk remains the source of truth."""
+
 from __future__ import annotations
 
 import json
@@ -61,11 +62,13 @@ class LiveVerbalizer:
                 "add an edge, change a missing or contradictory result to met, or take an action. "
                 "End with the supplied draft-disposition line exactly. No heading or extra text."
             ),
-            input=json.dumps({
-                "synthetic": True,
-                "rule_walk": [asdict(result) for result in results],
-                "draft_disposition_line": render(results)[0].splitlines()[-1],
-            }),
+            input=json.dumps(
+                {
+                    "synthetic": True,
+                    "rule_walk": [asdict(result) for result in results],
+                    "draft_disposition_line": render(results)[0].splitlines()[-1],
+                }
+            ),
         )
         return response.output_text
 
@@ -79,7 +82,11 @@ def select_verbalizer() -> DraftVerbalizer:
     if mode == "stub-hostile":
         return StubVerbalizer("hostile")
     if mode == "live":
-        return LiveVerbalizer() if os.environ.get("OPENAI_API_KEY") else StubVerbalizer("faithful")
+        return (
+            LiveVerbalizer()
+            if os.environ.get("OPENAI_API_KEY")
+            else StubVerbalizer("faithful")
+        )
     raise ValueError("VERBALIZER must be rule-walk, stub, stub-hostile, or live")
 
 
@@ -99,14 +106,19 @@ def citation_errors(draft: str, results: list[Result]) -> list[str]:
             errors.append(f"{result.criterion} outcome or order changed")
         citation = CITATION.search(line)
         expected_ids = list(result.edge_ids) or ["MISSING"]
-        cited = [part.strip() for part in citation.group(1).split(",")] if citation else []
+        cited = (
+            [part.strip() for part in citation.group(1).split(",")] if citation else []
+        )
         if cited != expected_ids:
             errors.append(f"{result.criterion} citation differs from returned edge")
         if any(edge_id not in allowed for edge_id in EDGE_ID.findall(line)):
             errors.append(f"{result.criterion} contains an invented edge id")
-    if len(lines) > len(results) and lines[len(results)].strip() != expected_disposition:
+    if (
+        len(lines) > len(results)
+        and lines[len(results)].strip() != expected_disposition
+    ):
         errors.append("draft disposition changed")
-    for line in lines[len(results) + 1:]:
+    for line in lines[len(results) + 1 :]:
         if any(edge_id not in allowed for edge_id in EDGE_ID.findall(line)):
             errors.append("extra line contains an invented edge id")
     return errors

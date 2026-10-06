@@ -46,10 +46,5 @@ The case fact did not become an answer by itself. The service first had to find 
 
 The [local demo](run.md) lets you paste these synthetic inputs into the local FastAPI service. The [engineering explanation](how-it-works.md) shows the code path and human gate.
 
-```text
-335 domain queries
-= 1,000,000 tokens · RAG
-= 90,000 tokens · RAG + CKG
-```
 
 This published context-window illustration is product positioning, not a token measurement from this demo. See the [local evaluation](evaluation.md) for measured lexical-token results.
